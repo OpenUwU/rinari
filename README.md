@@ -1,3 +1,8 @@
+
+<p align="center">
+  <a href="https://github.com/OpenUwU/rinari/">
+    <img src="https://raw.githubusercontent.com/OpenUwU/rinari/refs/heads/main/10207.png" alt="rinari"/>
+  </a>
 # Rinari
 
 **Lightweight, high-performance ORM for JavaScript and TypeScript**
