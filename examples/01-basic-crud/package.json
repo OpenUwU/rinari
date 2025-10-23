@@ -1,0 +1,23 @@
+{
+  "name": "basic-crud-example",
+  "version": "1.0.0",
+  "description": "Basic CRUD operations with Rinari ORM",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "rinari",
+    "orm",
+    "crud",
+    "example"
+  ],
+  "author": "OpenUwU",
+  "license": "OpenUwU Open License (OUOL-1.0)",
+  "dependencies": {
+    "@rinari/orm": "file:../../packages/orm",
+    "@rinari/sqlite": "1.0.1",
+    "@rinari/types": "1.0.1"
+  }
+}

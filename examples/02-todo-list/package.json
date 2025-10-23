@@ -1,0 +1,23 @@
+{
+  "name": "todo-list-example",
+  "version": "1.0.0",
+  "description": "Todo list application with Rinari ORM",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "rinari",
+    "orm",
+    "todo",
+    "example"
+  ],
+  "author": "OpenUwU",
+  "license": "OpenUwU Open License (OUOL-1.0)",
+  "dependencies": {
+    "@rinari/orm": "file:../../packages/orm",
+    "@rinari/sqlite": "file:../../packages/sqlite",
+    "@rinari/types": "file:../../packages/types"
+  }
+}

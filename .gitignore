@@ -1,0 +1,33 @@
+node_modules/
+.config
+*.log
+.env
+.DS_Store
+.replit
+.local
+replit.md
+bun.lock
+# Database files
+*.bread
+*.bread-shm
+*.bread-wal
+data/
+databases/
+
+# Build artifacts
+*.tsbuildinfo
+.turbo/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+package-lock.json
+# Test artifacts
+coverage/
+.nyc_output/
+
+# OS
+Thumbs.db

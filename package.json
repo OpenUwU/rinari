@@ -1,0 +1,66 @@
+{
+  "name": "rinari",
+  "version": "1.0.0",
+  "description": "Modular ORM framework for TypeScript/JavaScript with pluggable drivers",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build:all",
+    "build:all": "npm run build:types && npm run build:orm && npm run build:sqlite",
+    "build:types": "cd packages/types && tsup",
+    "build:orm": "npm run build:types && cd packages/orm && tsup",
+    "build:sqlite": "npm run build:types && npm run build:orm && cd packages/sqlite && tsup",
+    "clean": "npm run clean --workspaces --if-present && rm -rf node_modules data coverage && find . -name 'package-lock.json' -type f -delete && find . -name 'dist' -type d -exec rm -rf {} + 2>/dev/null || true",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,yml,yaml}\"",
+    "docs": "npm run docs:types && npm run docs:orm && npm run docs:sqlite",
+    "docs:types": "cd packages/types && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/types src/index.ts --readme none --excludePrivate",
+    "docs:orm": "cd packages/orm && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/orm src/index.ts --readme none --excludePrivate",
+    "docs:sqlite": "cd packages/sqlite && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/sqlite src/index.ts --readme none --excludePrivate"
+  },
+  "keywords": [
+    "orm",
+    "database",
+    "sqlite",
+    "typescript",
+    "driver",
+    "modular",
+    "query-builder",
+    "sql",
+    "bun",
+    "node"
+  ],
+  "author": "OpenUwU",
+  "license": "OpenUwU Open License (OUOL-1.0)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenUwU/rinari.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenUwU/rinari/issues"
+  },
+  "homepage": "https://github.com/OpenUwU/rinari#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.6",
+    "@types/node": "^24.8.1",
+    "tsx": "^4.20.6",
+    "typedoc": "^0.28.14",
+    "typedoc-plugin-markdown": "^4.9.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "prettier": "^3.6.2"
+  },
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "esbuild",
+    "sharp"
+  ]
+}

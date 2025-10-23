@@ -1,0 +1,47 @@
+{
+  "name": "@rinari/types",
+  "version": "1.0.1",
+  "description": "TypeScript type definitions for RINARI framework",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [
+    "rinari",
+    "types",
+    "typescript",
+    "orm",
+    "database"
+  ],
+  "author": "OpenUwU",
+  "license": "OpenUwU Open License (OUOL-1.0)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OpenUwU/rinari.git",
+    "directory": "packages/types"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^24.8.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "sideEffects": false
+}

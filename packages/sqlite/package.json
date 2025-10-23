@@ -1,0 +1,52 @@
+{
+  "name": "@rinari/sqlite",
+  "version": "1.0.1",
+  "description": "SQLite driver for @rinari/orm using better-sqlite3",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [
+    "rinari",
+    "sqlite",
+    "driver",
+    "better-sqlite3",
+    "database"
+  ],
+  "author": "OpenUwU",
+  "license": "OpenUwU Open License (OUOL-1.0)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenUwU/rinari.git",
+    "directory": "packages/sqlite"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@rinari/types": "1.0.1",
+    "better-sqlite3": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^24.8.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "sideEffects": false
+}
