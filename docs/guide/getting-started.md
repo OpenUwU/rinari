@@ -11,7 +11,8 @@ Install the core ORM package and a driver:
 npm install @rinari/orm @rinari/sqlite
 ```
 
-The types are included automatically if you're using TypeScript. For JavaScript projects, everything just works!
+The types are included automatically if you're using TypeScript. For JavaScript
+projects, everything just works!
 
 ## Your First Application
 
@@ -161,12 +162,12 @@ console.log(`Adults (${adults.length}):`, adults);
 
 console.log('\nUpdating user...');
 User.update({ age: 26 }, { username: 'alice' });
-console.log('Updated alice\'s age to 26');
+console.log("Updated alice's age to 26");
 
 console.log('\nAll users:');
 const all = User.findAll();
 console.log(`Total users: ${all.length}`);
-all.forEach(u => console.log(`  - ${u.username} (${u.age} years old)`));
+all.forEach((u) => console.log(`  - ${u.username} (${u.age} years old)`));
 
 orm.disconnect();
 console.log('\nDone!');
@@ -212,7 +213,8 @@ const activeCount = User.count({ status: 'active' });
 
 ### Database file not found
 
-The `storageDir` directory will be created automatically by Rinari when you first use the ORM. If you need to create it manually:
+The `storageDir` directory will be created automatically by Rinari when you
+first use the ORM. If you need to create it manually:
 
 ```javascript
 import { mkdirSync, existsSync } from 'fs';
@@ -225,7 +227,8 @@ if (!existsSync(dataDir)) {
 
 ### ES Module errors
 
-If you get "Cannot use import statement outside a module" error, make sure your `package.json` has:
+If you get "Cannot use import statement outside a module" error, make sure your
+`package.json` has:
 
 ```json
 {

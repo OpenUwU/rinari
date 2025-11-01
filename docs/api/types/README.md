@@ -1,24 +1,25 @@
 **@rinari/types**
 
-***
+---
 
 # @rinari/types
 
 ## Remarks
 
-This package provides all shared interfaces, types, and enums used across
-the Rinari ecosystem. It ensures type consistency between drivers and the core ORM.
+This package provides all shared interfaces, types, and enums used across the
+Rinari ecosystem. It ensures type consistency between drivers and the core ORM.
 
 ## Example
 
 Import types for use in your application:
+
 ```typescript
 import {
   TableSchema,
   ColumnDefinition,
   QueryOptions,
   Driver,
-  DataTypes
+  DataTypes,
 } from '@rinari/types';
 ```
 

@@ -1,6 +1,6 @@
 [**@rinari/types**](../README.md)
 
-***
+---
 
 [@rinari/types](../README.md) / WhereValue
 
@@ -8,6 +8,7 @@
 
 > **WhereValue** = `string` \| `number` \| `boolean` \| `null` \| `Date`
 
-Defined in: [orm.ts:345](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/orm.ts#L345)
+Defined in:
+[orm.ts:345](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/orm.ts#L345)
 
 Valid value types for WHERE conditions.

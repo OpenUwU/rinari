@@ -1,21 +1,23 @@
 [**@rinari/types**](../README.md)
 
-***
+---
 
 [@rinari/types](../README.md) / DataTypeValue
 
 # Type Alias: DataTypeValue
 
-> **DataTypeValue** = *typeof* [`DataTypes`](../variables/DataTypes.md)\[keyof *typeof* [`DataTypes`](../variables/DataTypes.md)\]
+> **DataTypeValue** = _typeof_ [`DataTypes`](../variables/DataTypes.md)\[keyof
+> _typeof_ [`DataTypes`](../variables/DataTypes.md)\]
 
-Defined in: [data-types.ts:55](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/data-types.ts#L55)
+Defined in:
+[data-types.ts:55](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/data-types.ts#L55)
 
 Union type of all valid data type values.
 
 ## Remarks
 
-This type is derived from the [DataTypes](../variables/DataTypes.md) constant object.
-Use this type for type-safe data type specifications.
+This type is derived from the [DataTypes](../variables/DataTypes.md) constant
+object. Use this type for type-safe data type specifications.
 
 ## Example
 

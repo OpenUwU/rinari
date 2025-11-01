@@ -1,4 +1,3 @@
-
 # Part 4: Querying and Listing Notes
 
 Learn how to retrieve notes using Rinari's powerful query system.

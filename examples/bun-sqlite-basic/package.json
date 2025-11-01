@@ -1,0 +1,18 @@
+{
+  "name": "bun-sqlite-basic-example",
+  "version": "1.0.0",
+  "description": "Basic CRUD example using Rinari ORM with Bun SQLite driver",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run index.ts"
+  },
+  "dependencies": {
+    "@rinari/bun-sqlite": "file:../../packages/bun-sqlite",
+    "@rinari/orm": "file:../../packages/orm",
+    "@rinari/types": "file:../../packages/types"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  }
+}

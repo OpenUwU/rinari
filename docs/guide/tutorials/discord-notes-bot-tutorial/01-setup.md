@@ -1,7 +1,7 @@
-
 # Part 1: Setting Up the Discord Notes Bot
 
-This guide will walk you through building a Discord notes bot from scratch using Rinari ORM.
+This guide will walk you through building a Discord notes bot from scratch using
+Rinari ORM.
 
 ## Prerequisites
 
@@ -20,7 +20,8 @@ npm install -D tsx typescript @types/node
 
 ## Step 2: Set Up Your Discord Bot
 
-1. Go to the [Discord Developer Portal](https://discord.com/developers/applications)
+1. Go to the
+   [Discord Developer Portal](https://discord.com/developers/applications)
 2. Click "New Application" and give it a name
 3. Navigate to the "Bot" section
 4. Click "Add Bot"
@@ -51,7 +52,8 @@ const orm = new ORM({
 });
 ```
 
-This sets up Rinari with a SQLite driver that stores data in the `./data` directory.
+This sets up Rinari with a SQLite driver that stores data in the `./data`
+directory.
 
 ## Step 5: Define Your Models
 
@@ -121,8 +123,11 @@ Note.createIndex('idx_tags', {
 
 ## Why Indexes Matter
 
-Indexes dramatically improve query performance. The `idx_user_notes` index helps when listing a user's notes sorted by creation date, while `idx_tags` speeds up tag searches.
+Indexes dramatically improve query performance. The `idx_user_notes` index helps
+when listing a user's notes sorted by creation date, while `idx_tags` speeds up
+tag searches.
 
 ## Next Steps
 
-In the next guide, we'll set up the Discord client and implement our first command.
+In the next guide, we'll set up the Discord client and implement our first
+command.

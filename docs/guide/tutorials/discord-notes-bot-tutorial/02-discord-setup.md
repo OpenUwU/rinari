@@ -1,4 +1,3 @@
-
 # Part 2: Setting Up the Discord Client
 
 Now that we have our database models ready, let's connect to Discord.
@@ -104,4 +103,5 @@ Test the `!help` command in Discord. You should see the help message appear.
 
 ## Next Steps
 
-In the next guide, we'll implement note creation using Rinari's create operations.
+In the next guide, we'll implement note creation using Rinari's create
+operations.

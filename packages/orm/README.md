@@ -1,4 +1,3 @@
-
 # @rinari/orm
 
 Lightweight, modular ORM for Node.js and Bun with pluggable database drivers.
@@ -8,7 +7,10 @@ Lightweight, modular ORM for Node.js and Bun with pluggable database drivers.
 
 ## Overview
 
-`@rinari/orm` is the core package of the Rinari ORM framework, providing a powerful yet simple API for database operations. It features a pluggable driver architecture, full TypeScript support, and works seamlessly with both synchronous and asynchronous drivers.
+`@rinari/orm` is the core package of the Rinari ORM framework, providing a
+powerful yet simple API for database operations. It features a pluggable driver
+architecture, full TypeScript support, and works seamlessly with both
+synchronous and asynchronous drivers.
 
 ## Features
 
@@ -19,7 +21,8 @@ Lightweight, modular ORM for Node.js and Bun with pluggable database drivers.
 - **Sync and Async** - Compatible with both sync and async drivers
 - **Lightweight** - Minimal overhead, maximum performance
 - **Transaction Support** - ACID transactions for data integrity
-- **Query Operators** - Rich query language with comparison, pattern matching, and range operators
+- **Query Operators** - Rich query language with comparison, pattern matching,
+  and range operators
 
 ## Installation
 
@@ -89,6 +92,7 @@ const orm = new ORM({
 Define a model and create its table in the database.
 
 **Parameters:**
+
 - `dbName` (string) - Database name
 - `tableName` (string) - Table name
 - `schema` (object) - Column definitions
@@ -108,15 +112,15 @@ const User = orm.define('mydb', 'users', {
 
 **Column Options:**
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `type` | DataType | Required. Data type from DataTypes enum |
-| `primaryKey` | boolean | Mark column as primary key |
-| `autoIncrement` | boolean | Auto-increment (INTEGER primary keys only) |
-| `notNull` | boolean | NOT NULL constraint |
-| `unique` | boolean | UNIQUE constraint |
-| `default` | any | Default value for the column |
-| `references` | object | Foreign key relationship |
+| Option          | Type     | Description                                |
+| --------------- | -------- | ------------------------------------------ |
+| `type`          | DataType | Required. Data type from DataTypes enum    |
+| `primaryKey`    | boolean  | Mark column as primary key                 |
+| `autoIncrement` | boolean  | Auto-increment (INTEGER primary keys only) |
+| `notNull`       | boolean  | NOT NULL constraint                        |
+| `unique`        | boolean  | UNIQUE constraint                          |
+| `default`       | any      | Default value for the column               |
+| `references`    | object   | Foreign key relationship                   |
 
 ##### `model(dbName, tableName)`
 
@@ -182,6 +186,7 @@ Models provide CRUD operations and queries for database tables.
 Find a single record.
 
 **Parameters:**
+
 - `options.where` - Filter conditions
 - `options.select` - Columns to select
 
@@ -198,6 +203,7 @@ const user = User.findOne({
 Find multiple records.
 
 **Parameters:**
+
 - `options.where` - Filter conditions
 - `options.orderBy` - Sort order
 - `options.limit` - Maximum records to return
@@ -265,10 +271,7 @@ Update records matching criteria.
 **Returns:** Number of updated records
 
 ```javascript
-const count = User.update(
-  { status: 'verified' },
-  { id: 1 }
-);
+const count = User.update({ status: 'verified' }, { id: 1 });
 console.log(`Updated ${count} record(s)`);
 ```
 
@@ -376,7 +379,7 @@ User.transaction(() => {
   User.create({ username: 'alice', email: 'alice@example.com' });
   User.create({ username: 'bob', email: 'bob@example.com' });
   User.update({ verified: true }, { username: 'alice' });
-  
+
   // If any operation fails, all changes are rolled back
 });
 ```
@@ -389,29 +392,29 @@ Build complex queries with operators:
 
 ```javascript
 // Comparison operators
-User.findAll({ where: { age: { $gt: 18 } } });                // age > 18
-User.findAll({ where: { age: { $gte: 18 } } });               // age >= 18
-User.findAll({ where: { age: { $lt: 65 } } });                // age < 65
-User.findAll({ where: { age: { $lte: 65 } } });               // age <= 65
-User.findAll({ where: { status: { $ne: 'deleted' } } });      // status != 'deleted'
+User.findAll({ where: { age: { $gt: 18 } } }); // age > 18
+User.findAll({ where: { age: { $gte: 18 } } }); // age >= 18
+User.findAll({ where: { age: { $lt: 65 } } }); // age < 65
+User.findAll({ where: { age: { $lte: 65 } } }); // age <= 65
+User.findAll({ where: { status: { $ne: 'deleted' } } }); // status != 'deleted'
 
 // Set operators
 User.findAll({
-  where: { status: { $in: ['active', 'pending'] } }
+  where: { status: { $in: ['active', 'pending'] } },
 });
 
 User.findAll({
-  where: { status: { $notIn: ['deleted', 'banned'] } }
+  where: { status: { $notIn: ['deleted', 'banned'] } },
 });
 
 // Pattern matching
 User.findAll({
-  where: { email: { $like: '%@gmail.com' } }
+  where: { email: { $like: '%@gmail.com' } },
 });
 
 // Range queries
 User.findAll({
-  where: { age: { $between: [18, 65] } }
+  where: { age: { $between: [18, 65] } },
 });
 
 // Complex conditions
@@ -426,17 +429,17 @@ User.findAll({
 
 **Available operators:**
 
-| Operator | Description | Example |
-|----------|-------------|---------|
-| `$gt` | Greater than | `{ age: { $gt: 18 } }` |
-| `$gte` | Greater than or equal | `{ age: { $gte: 18 } }` |
-| `$lt` | Less than | `{ age: { $lt: 65 } }` |
-| `$lte` | Less than or equal | `{ age: { $lte: 65 } }` |
-| `$ne` | Not equal | `{ status: { $ne: 'deleted' } }` |
-| `$in` | In array | `{ status: { $in: ['active', 'pending'] } }` |
-| `$notIn` | Not in array | `{ status: { $notIn: ['deleted'] } }` |
-| `$like` | Pattern match | `{ email: { $like: '%@gmail.com' } }` |
-| `$between` | Between range | `{ age: { $between: [18, 65] } }` |
+| Operator   | Description           | Example                                      |
+| ---------- | --------------------- | -------------------------------------------- |
+| `$gt`      | Greater than          | `{ age: { $gt: 18 } }`                       |
+| `$gte`     | Greater than or equal | `{ age: { $gte: 18 } }`                      |
+| `$lt`      | Less than             | `{ age: { $lt: 65 } }`                       |
+| `$lte`     | Less than or equal    | `{ age: { $lte: 65 } }`                      |
+| `$ne`      | Not equal             | `{ status: { $ne: 'deleted' } }`             |
+| `$in`      | In array              | `{ status: { $in: ['active', 'pending'] } }` |
+| `$notIn`   | Not in array          | `{ status: { $notIn: ['deleted'] } }`        |
+| `$like`    | Pattern match         | `{ email: { $like: '%@gmail.com' } }`        |
+| `$between` | Between range         | `{ age: { $between: [18, 65] } }`            |
 
 ### TypeScript Support
 
@@ -553,14 +556,14 @@ User.transaction(() => {
     username: 'alice',
     email: 'alice@example.com',
   });
-  
+
   const bob = User.create({
     username: 'bob',
     email: 'bob@example.com',
   });
-  
+
   User.update({ verified: true }, { id: alice.id });
-  
+
   // All operations succeed together or fail together
 });
 ```
@@ -576,8 +579,8 @@ import { SQLiteDriver } from '@rinari/sqlite';
 const orm = new ORM({
   driver: new SQLiteDriver({
     storageDir: './databases',
-    verbose: false,      // SQL query logging
-    readonly: false,     // Read-only mode
+    verbose: false, // SQL query logging
+    readonly: false, // Read-only mode
   }),
 });
 ```
@@ -593,23 +596,34 @@ const orm = new ORM({
 
 ## Related Packages
 
-- **[@rinari/types](https://github.com/OpenUwU/rinari/tree/main/packages/types)** - Type definitions and DataTypes enum
-- **[@rinari/sqlite](https://github.com/OpenUwU/rinari/tree/main/packages/sqlite)** - SQLite database driver
+- **[@rinari/types](https://github.com/OpenUwU/rinari/tree/main/packages/types)** -
+  Type definitions and DataTypes enum
+- **[@rinari/sqlite](https://github.com/OpenUwU/rinari/tree/main/packages/sqlite)** -
+  SQLite database driver
 
 ## Documentation
 
-- **[Complete Documentation](https://github.com/OpenUwU/rinari/blob/main/docs/README.md)** - Full guides and tutorials
-- **[API Documentation](https://github.com/OpenUwU/rinari/tree/main/docs/api/orm)** - Complete API reference
-- **[Getting Started](https://github.com/OpenUwU/rinari/blob/main/docs/guide/getting-started.md)** - Quick start guide
-- **[Core Concepts](https://github.com/OpenUwU/rinari/blob/main/docs/guide/core-concepts.md)** - Framework fundamentals
-- **[Working with Models](https://github.com/OpenUwU/rinari/blob/main/docs/guide/orm/models.md)** - Model operations guide
-- **[Examples](https://github.com/OpenUwU/rinari/tree/main/examples)** - Working code examples
+- **[Complete Documentation](https://github.com/OpenUwU/rinari/blob/main/docs/README.md)** -
+  Full guides and tutorials
+- **[API Documentation](https://github.com/OpenUwU/rinari/tree/main/docs/api/orm)** -
+  Complete API reference
+- **[Getting Started](https://github.com/OpenUwU/rinari/blob/main/docs/guide/getting-started.md)** -
+  Quick start guide
+- **[Core Concepts](https://github.com/OpenUwU/rinari/blob/main/docs/guide/core-concepts.md)** -
+  Framework fundamentals
+- **[Working with Models](https://github.com/OpenUwU/rinari/blob/main/docs/guide/orm/models.md)** -
+  Model operations guide
+- **[Examples](https://github.com/OpenUwU/rinari/tree/main/examples)** - Working
+  code examples
 
 ## Support
 
-- **[GitHub Issues](https://github.com/OpenUwU/rinari/issues)** - Bug reports and feature requests
-- **[Discord Community](https://discord.gg/zqxWVH3CvG)** - Community support and discussions
+- **[GitHub Issues](https://github.com/OpenUwU/rinari/issues)** - Bug reports
+  and feature requests
+- **[Discord Community](https://discord.gg/zqxWVH3CvG)** - Community support and
+  discussions
 
 ## License
 
-OpenUwU Open License (OUOL-1.0) - See [LICENSE](https://github.com/OpenUwU/rinari/blob/main/LICENSE) for details.
+OpenUwU Open License (OUOL-1.0) - See
+[LICENSE](https://github.com/OpenUwU/rinari/blob/main/LICENSE) for details.

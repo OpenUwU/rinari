@@ -1,4 +1,3 @@
-
 # Part 5: Updating and Deleting Notes
 
 Learn how to modify and remove data with Rinari.
@@ -15,7 +14,9 @@ async function handleEditNote(message, args) {
     return;
   }
 
-  const note = Note.findOne({ where: { id: noteId, userId: message.author.id } });
+  const note = Note.findOne({
+    where: { id: noteId, userId: message.author.id },
+  });
 
   if (!note) {
     await message.reply('Note not found or you do not own it.');
@@ -32,8 +33,8 @@ async function handleEditNote(message, args) {
 
 ```typescript
 Note.update(
-  { field: 'newValue' },  // Data to set
-  { id: 1 }               // Where condition
+  { field: 'newValue' }, // Data to set
+  { id: 1 } // Where condition
 );
 ```
 
@@ -52,7 +53,9 @@ async function handleDeleteNote(message, args) {
     return;
   }
 
-  const note = Note.findOne({ where: { id: noteId, userId: message.author.id } });
+  const note = Note.findOne({
+    where: { id: noteId, userId: message.author.id },
+  });
 
   if (!note) {
     await message.reply('Note not found or you do not own it.');
@@ -142,4 +145,5 @@ if (!note) {
 
 ## Next Steps
 
-In the final guide, we'll cover advanced features like aggregations and bulk operations.
+In the final guide, we'll cover advanced features like aggregations and bulk
+operations.

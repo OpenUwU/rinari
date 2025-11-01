@@ -1,10 +1,12 @@
 # Quick Start Tutorial
 
-Welcome to Rinari! This tutorial will help you build your first database application from scratch in just 10 minutes.
+Welcome to Rinari! This tutorial will help you build your first database
+application from scratch in just 10 minutes.
 
 ## What You Will Build
 
 A simple user management system where you can:
+
 - Create new users
 - Find users by different criteria
 - Update user information
@@ -59,6 +61,7 @@ import { DataTypes } from '@rinari/types';
 ```
 
 **What does each import do?**
+
 - `ORM` - The main class that manages your database
 - `SQLiteDriver` - Handles the SQLite database connection
 - `DataTypes` - Provides data type definitions for your models
@@ -75,7 +78,9 @@ const orm = new ORM({
 });
 ```
 
-This creates a new ORM instance using SQLite. The `storageDir` option tells Rinari where to store your database files (it will create a `data` folder automatically).
+This creates a new ORM instance using SQLite. The `storageDir` option tells
+Rinari where to store your database files (it will create a `data` folder
+automatically).
 
 ## Step 5: Define Your Model
 
@@ -108,6 +113,7 @@ const User = orm.define('default', 'users', {
 ```
 
 **Breaking it down:**
+
 - `'default'` - The database name (you can have multiple databases)
 - `'users'` - The table name
 - The third parameter defines the table structure:
@@ -168,10 +174,7 @@ Update a user's information:
 
 ```javascript
 console.log('\nUpdating user...');
-const updated = User.update(
-  { age: 26 },
-  { username: 'alice' }
-);
+const updated = User.update({ age: 26 }, { username: 'alice' });
 
 console.log(`Updated ${updated} record(s)`);
 
@@ -313,14 +316,21 @@ You should see output showing all the database operations!
 
 Now that you have built your first app, try:
 
-1. **Add More Fields** - Try adding fields like `phoneNumber`, `address`, or `role`
+1. **Add More Fields** - Try adding fields like `phoneNumber`, `address`, or
+   `role`
 2. **Use More Operators** - Try `$like`, `$in`, `$between` for queries
 3. **Create Another Model** - Add a Profile or Post model
-4. **Explore Examples** - Check out the [Todo List](https://github.com/OpenUwU/rinari/tree/main/examples/02-todo-list) or [Discord Bot](https://github.com/OpenUwU/rinari/tree/main/examples/discord-notes-bot) examples
-5. **Learn Advanced Features** - Read about [transactions, aggregations, and indexes](../core-concepts.md)
+4. **Explore Examples** - Check out the
+   [Todo List](https://github.com/OpenUwU/rinari/tree/main/examples/02-todo-list)
+   or
+   [Discord Bot](https://github.com/OpenUwU/rinari/tree/main/examples/discord-notes-bot)
+   examples
+5. **Learn Advanced Features** - Read about
+   [transactions, aggregations, and indexes](../core-concepts.md)
 
 ## Need Help?
 
 - Read the [Core Concepts](../core-concepts.md) guide
-- Check the [API Reference](https://github.com/OpenUwU/rinari/tree/main/docs/api)
+- Check the
+  [API Reference](https://github.com/OpenUwU/rinari/tree/main/docs/api)
 - Look at more [examples](https://github.com/OpenUwU/rinari/tree/main/examples)

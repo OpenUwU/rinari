@@ -1,7 +1,7 @@
-
 # Discord Notes Bot Example
 
-A feature-rich Discord bot built with Rinari ORM that demonstrates real-world database integration.
+A feature-rich Discord bot built with Rinari ORM that demonstrates real-world
+database integration.
 
 ## Features
 
@@ -15,24 +15,28 @@ A feature-rich Discord bot built with Rinari ORM that demonstrates real-world da
 ## Quick Start
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Get a Discord bot token:**
-   - Visit the [Discord Developer Portal](https://discord.com/developers/applications)
+   - Visit the
+     [Discord Developer Portal](https://discord.com/developers/applications)
    - Create a new application
    - Go to the "Bot" section and create a bot
    - Copy the bot token
    - Enable "Message Content Intent" under Privileged Gateway Intents
 
 3. **Configure your bot:**
+
    ```bash
    cp .env.example .env
    # Edit .env and add your Discord token
    ```
 
 4. **Run the bot:**
+
    ```bash
    npm start
    ```
@@ -47,7 +51,8 @@ A feature-rich Discord bot built with Rinari ORM that demonstrates real-world da
 
 ## Complete Tutorial
 
-This example is part of a **comprehensive step-by-step tutorial** that teaches you:
+This example is part of a **comprehensive step-by-step tutorial** that teaches
+you:
 
 - Setting up models and indexes
 - Discord bot integration
@@ -59,6 +64,7 @@ This example is part of a **comprehensive step-by-step tutorial** that teaches y
 **[📚 Follow the Complete Tutorial →](../../docs/guide/tutorials/discord-notes-bot-tutorial/README.md)**
 
 The tutorial covers:
+
 1. [Setup & Models](../../docs/guide/tutorials/discord-notes-bot-tutorial/01-setup.md)
 2. [Discord Bot Setup](../../docs/guide/tutorials/discord-notes-bot-tutorial/02-discord-setup.md)
 3. [Creating Notes](../../docs/guide/tutorials/discord-notes-bot-tutorial/03-creating-notes.md)
@@ -101,7 +107,8 @@ data/             # SQLite database files (created automatically)
 ## Technologies Used
 
 - **[@rinari/orm](https://github.com/OpenUwU/rinari)** - Lightweight ORM
-- **[@rinari/sqlite](https://github.com/OpenUwU/rinari/tree/main/packages/sqlite)** - SQLite driver
+- **[@rinari/sqlite](https://github.com/OpenUwU/rinari/tree/main/packages/sqlite)** -
+  SQLite driver
 - **[discord.js](https://discord.js.org/)** - Discord bot framework
 
 ## Next Steps
@@ -110,7 +117,8 @@ After exploring this example:
 
 1. **Extend the bot** - Add categories, sharing, or reminders
 2. **Try other examples** - Check out the [Todo List](../02-todo-list) example
-3. **Read the docs** - Learn about [Common Patterns](../../docs/guide/tutorials/common-patterns.md)
+3. **Read the docs** - Learn about
+   [Common Patterns](../../docs/guide/tutorials/common-patterns.md)
 4. **Build your own** - Create a bot with your own features!
 
 ## Need Help?

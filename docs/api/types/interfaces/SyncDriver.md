@@ -1,19 +1,20 @@
 [**@rinari/types**](../README.md)
 
-***
+---
 
 [@rinari/types](../README.md) / SyncDriver
 
 # Interface: SyncDriver
 
-Defined in: [driver.ts:472](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L472)
+Defined in:
+[driver.ts:472](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L472)
 
 Synchronous driver interface.
 
 ## Remarks
 
-All operations return values directly without Promises.
-Suitable for SQLite and other synchronous backends.
+All operations return values directly without Promises. Suitable for SQLite and
+other synchronous backends.
 
 ## Example
 
@@ -35,7 +36,8 @@ console.log(user); // No await needed
 
 > `readonly` **metadata**: [`DriverMetadata`](DriverMetadata.md)
 
-Defined in: [driver.ts:126](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L126)
+Defined in:
+[driver.ts:126](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L126)
 
 Driver metadata (name, version).
 
@@ -47,9 +49,11 @@ Driver metadata (name, version).
 
 ### aggregate()?
 
-> `optional` **aggregate**(`dbName`, `tableName`, `operation`, `field`, `where?`): `number` \| `Promise`\<`number`\>
+> `optional` **aggregate**(`dbName`, `tableName`, `operation`, `field`,
+> `where?`): `number` \| `Promise`\<`number`\>
 
-Defined in: [driver.ts:445](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L445)
+Defined in:
+[driver.ts:445](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L445)
 
 Perform an aggregation operation.
 
@@ -96,7 +100,7 @@ Aggregation result
 ```typescript
 const totalAge = driver.aggregate('main', 'users', 'SUM', 'age');
 const avgAge = driver.aggregate('main', 'users', 'AVG', 'age', {
-  status: 'active'
+  status: 'active',
 });
 ```
 
@@ -104,13 +108,14 @@ const avgAge = driver.aggregate('main', 'users', 'AVG', 'age', {
 
 [`Driver`](Driver.md).[`aggregate`](Driver.md#aggregate)
 
-***
+---
 
 ### bulkInsert()
 
 > **bulkInsert**\<`T`\>(`dbName`, `tableName`, `records`): `T`[]
 
-Defined in: [driver.ts:482](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L482)
+Defined in:
+[driver.ts:482](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L482)
 
 Insert multiple records in a single operation.
 
@@ -153,7 +158,7 @@ Array of inserted records with generated IDs
 ```typescript
 const users = driver.bulkInsert<User>('main', 'users', [
   { username: 'alice', email: 'alice@example.com' },
-  { username: 'bob', email: 'bob@example.com' }
+  { username: 'bob', email: 'bob@example.com' },
 ]);
 ```
 
@@ -161,13 +166,14 @@ const users = driver.bulkInsert<User>('main', 'users', [
 
 [`Driver`](Driver.md).[`bulkInsert`](Driver.md#bulkinsert)
 
-***
+---
 
 ### bulkUpdate()
 
 > **bulkUpdate**(`dbName`, `tableName`, `updates`): `number`
 
-Defined in: [driver.ts:489](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L489)
+Defined in:
+[driver.ts:489](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L489)
 
 Perform multiple updates in a single operation.
 
@@ -202,7 +208,7 @@ Total number of updated records
 ```typescript
 const updated = driver.bulkUpdate('main', 'users', [
   { where: { id: 1 }, data: { status: 'active' } },
-  { where: { id: 2 }, data: { status: 'inactive' } }
+  { where: { id: 2 }, data: { status: 'inactive' } },
 ]);
 ```
 
@@ -210,13 +216,14 @@ const updated = driver.bulkUpdate('main', 'users', [
 
 [`Driver`](Driver.md).[`bulkUpdate`](Driver.md#bulkupdate)
 
-***
+---
 
 ### connect()
 
 > **connect**(`config`): `void`
 
-Defined in: [driver.ts:473](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L473)
+Defined in:
+[driver.ts:473](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L473)
 
 Establish database connection.
 
@@ -237,7 +244,7 @@ Driver configuration
 ```typescript
 driver.connect({
   storageDir: './data',
-  verbose: true
+  verbose: true,
 });
 ```
 
@@ -245,13 +252,14 @@ driver.connect({
 
 [`Driver`](Driver.md).[`connect`](Driver.md#connect)
 
-***
+---
 
 ### count()
 
 > **count**(`dbName`, `tableName`, `where?`): `number`
 
-Defined in: [driver.ts:480](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L480)
+Defined in:
+[driver.ts:480](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L480)
 
 Count records matching the where condition.
 
@@ -285,7 +293,7 @@ Number of matching records
 
 ```typescript
 const count = driver.count('main', 'users', {
-  status: 'active'
+  status: 'active',
 });
 console.log(`${count} active users`);
 ```
@@ -294,13 +302,14 @@ console.log(`${count} active users`);
 
 [`Driver`](Driver.md).[`count`](Driver.md#count)
 
-***
+---
 
 ### createIndex()
 
 > **createIndex**(`dbName`, `tableName`, `indexName`, `options`): `void`
 
-Defined in: [driver.ts:495](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L495)
+Defined in:
+[driver.ts:495](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L495)
 
 Create an index on specified columns.
 
@@ -339,7 +348,7 @@ Index options
 ```typescript
 driver.createIndex('main', 'users', 'idx_email', {
   unique: true,
-  columns: ['email']
+  columns: ['email'],
 });
 ```
 
@@ -347,13 +356,14 @@ driver.createIndex('main', 'users', 'idx_email', {
 
 [`Driver`](Driver.md).[`createIndex`](Driver.md#createindex)
 
-***
+---
 
 ### createTable()
 
 > **createTable**(`dbName`, `tableName`, `schema`): `void`
 
-Defined in: [driver.ts:475](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L475)
+Defined in:
+[driver.ts:475](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L475)
 
 Create a new table with the specified schema.
 
@@ -386,7 +396,7 @@ Table schema definition
 ```typescript
 driver.createTable('main', 'users', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  username: { type: DataTypes.TEXT, notNull: true, unique: true }
+  username: { type: DataTypes.TEXT, notNull: true, unique: true },
 });
 ```
 
@@ -394,13 +404,14 @@ driver.createTable('main', 'users', {
 
 [`Driver`](Driver.md).[`createTable`](Driver.md#createtable)
 
-***
+---
 
 ### delete()
 
 > **delete**(`dbName`, `tableName`, `where`): `number`
 
-Defined in: [driver.ts:494](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L494)
+Defined in:
+[driver.ts:494](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L494)
 
 Delete records matching the where condition.
 
@@ -434,7 +445,7 @@ Number of deleted records
 
 ```typescript
 const deleted = driver.delete('main', 'users', {
-  status: 'banned'
+  status: 'banned',
 });
 console.log(`${deleted} users removed`);
 ```
@@ -443,13 +454,14 @@ console.log(`${deleted} users removed`);
 
 [`Driver`](Driver.md).[`delete`](Driver.md#delete)
 
-***
+---
 
 ### disconnect()
 
 > **disconnect**(): `void`
 
-Defined in: [driver.ts:474](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L474)
+Defined in:
+[driver.ts:474](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L474)
 
 Close database connection and cleanup resources.
 
@@ -467,13 +479,14 @@ await driver.disconnect();
 
 [`Driver`](Driver.md).[`disconnect`](Driver.md#disconnect)
 
-***
+---
 
 ### dropIndex()
 
 > **dropIndex**(`dbName`, `tableName`, `indexName`): `void`
 
-Defined in: [driver.ts:496](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L496)
+Defined in:
+[driver.ts:496](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L496)
 
 Drop (delete) an index.
 
@@ -511,13 +524,14 @@ driver.dropIndex('main', 'users', 'idx_email');
 
 [`Driver`](Driver.md).[`dropIndex`](Driver.md#dropindex)
 
-***
+---
 
 ### dropTable()
 
 > **dropTable**(`dbName`, `tableName`): `void`
 
-Defined in: [driver.ts:476](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L476)
+Defined in:
+[driver.ts:476](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L476)
 
 Drop (delete) a table.
 
@@ -549,13 +563,14 @@ driver.dropTable('main', 'old_users');
 
 [`Driver`](Driver.md).[`dropTable`](Driver.md#droptable)
 
-***
+---
 
 ### findAll()
 
 > **findAll**\<`T`\>(`dbName`, `tableName`, `options`): `T`[]
 
-Defined in: [driver.ts:479](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L479)
+Defined in:
+[driver.ts:479](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L479)
 
 Find all records matching the query options.
 
@@ -599,7 +614,7 @@ Array of matching records
 const adults = driver.findAll<User>('main', 'users', {
   where: { age: { $gte: 18 } },
   orderBy: [['age', 'ASC']],
-  limit: 10
+  limit: 10,
 });
 ```
 
@@ -607,13 +622,14 @@ const adults = driver.findAll<User>('main', 'users', {
 
 [`Driver`](Driver.md).[`findAll`](Driver.md#findall)
 
-***
+---
 
 ### findOne()
 
 > **findOne**\<`T`\>(`dbName`, `tableName`, `options`): `T` \| `null`
 
-Defined in: [driver.ts:478](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L478)
+Defined in:
+[driver.ts:478](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L478)
 
 Find a single record matching the query options.
 
@@ -655,7 +671,7 @@ Matching record or null
 
 ```typescript
 const user = driver.findOne<User>('main', 'users', {
-  where: { username: 'alice' }
+  where: { username: 'alice' },
 });
 ```
 
@@ -663,13 +679,14 @@ const user = driver.findOne<User>('main', 'users', {
 
 [`Driver`](Driver.md).[`findOne`](Driver.md#findone)
 
-***
+---
 
 ### insert()
 
 > **insert**\<`T`\>(`dbName`, `tableName`, `data`): `T`
 
-Defined in: [driver.ts:481](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L481)
+Defined in:
+[driver.ts:481](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L481)
 
 Insert a new record.
 
@@ -713,7 +730,7 @@ Inserted record with generated ID
 const user = driver.insert<User>('main', 'users', {
   username: 'alice',
   email: 'alice@example.com',
-  age: 25
+  age: 25,
 });
 console.log(user.id); // Generated ID
 ```
@@ -722,13 +739,14 @@ console.log(user.id); // Generated ID
 
 [`Driver`](Driver.md).[`insert`](Driver.md#insert)
 
-***
+---
 
 ### tableExists()
 
 > **tableExists**(`dbName`, `tableName`): `boolean`
 
-Defined in: [driver.ts:477](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L477)
+Defined in:
+[driver.ts:477](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L477)
 
 Check if a table exists.
 
@@ -764,13 +782,14 @@ if (driver.tableExists('main', 'users')) {
 
 [`Driver`](Driver.md).[`tableExists`](Driver.md#tableexists)
 
-***
+---
 
 ### transaction()
 
 > **transaction**\<`T`\>(`fn`): `T`
 
-Defined in: [driver.ts:497](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L497)
+Defined in:
+[driver.ts:497](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L497)
 
 Execute a transaction.
 
@@ -798,8 +817,8 @@ Transaction result
 
 #### Remarks
 
-All operations in the callback execute atomically.
-If an error occurs, all changes are rolled back.
+All operations in the callback execute atomically. If an error occurs, all
+changes are rolled back.
 
 #### Example
 
@@ -815,13 +834,14 @@ const result = driver.transaction(() => {
 
 [`Driver`](Driver.md).[`transaction`](Driver.md#transaction)
 
-***
+---
 
 ### update()
 
 > **update**(`dbName`, `tableName`, `data`, `where`): `number`
 
-Defined in: [driver.ts:483](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/driver.ts#L483)
+Defined in:
+[driver.ts:483](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/driver.ts#L483)
 
 Update records matching the where condition.
 
@@ -860,7 +880,9 @@ Number of updated records
 #### Example
 
 ```typescript
-const updated = driver.update('main', 'users',
+const updated = driver.update(
+  'main',
+  'users',
   { status: 'inactive' },
   { last_login: { $lt: '2024-01-01' } }
 );

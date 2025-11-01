@@ -1,6 +1,6 @@
 [**@rinari/types**](../README.md)
 
-***
+---
 
 [@rinari/types](../README.md) / DataTypes
 
@@ -8,7 +8,8 @@
 
 > `const` **DataTypes**: `object`
 
-Defined in: [data-types.ts:23](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/data-types.ts#L23)
+Defined in:
+[data-types.ts:23](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/data-types.ts#L23)
 
 Standard data types supported across all Rinari drivers.
 
@@ -64,8 +65,9 @@ Standard data types supported across all Rinari drivers.
 
 ## Remarks
 
-These data types provide a unified abstraction layer across different database systems.
-Each driver is responsible for mapping these types to their native equivalents.
+These data types provide a unified abstraction layer across different database
+systems. Each driver is responsible for mapping these types to their native
+equivalents.
 
 ## Example
 
@@ -77,6 +79,6 @@ const userSchema = {
   name: { type: DataTypes.TEXT, notNull: true },
   age: { type: DataTypes.INTEGER },
   balance: { type: DataTypes.REAL },
-  metadata: { type: DataTypes.JSON }
+  metadata: { type: DataTypes.JSON },
 };
 ```

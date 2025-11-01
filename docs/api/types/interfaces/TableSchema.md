@@ -1,19 +1,20 @@
 [**@rinari/types**](../README.md)
 
-***
+---
 
 [@rinari/types](../README.md) / TableSchema
 
 # Interface: TableSchema
 
-Defined in: [orm.ts:158](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/orm.ts#L158)
+Defined in:
+[orm.ts:158](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/orm.ts#L158)
 
 Table schema definition mapping column names to their definitions.
 
 ## Remarks
 
-A table schema is a key-value object where keys are column names
-and values are [ColumnDefinition](ColumnDefinition.md) objects.
+A table schema is a key-value object where keys are column names and values are
+[ColumnDefinition](ColumnDefinition.md) objects.
 
 ## Example
 
@@ -24,28 +25,28 @@ const userSchema: TableSchema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   username: {
     type: DataTypes.TEXT,
     notNull: true,
-    unique: true
+    unique: true,
   },
   email: {
     type: DataTypes.TEXT,
     notNull: true,
-    unique: true
+    unique: true,
   },
   age: {
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   isActive: {
     type: DataTypes.BOOLEAN,
-    default: true
+    default: true,
   },
   metadata: {
-    type: DataTypes.JSON
-  }
+    type: DataTypes.JSON,
+  },
 };
 ```
 

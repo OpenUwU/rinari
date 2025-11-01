@@ -1,7 +1,7 @@
-
 # Creating Custom Drivers
 
-This guide shows you how to create custom database drivers for Rinari ORM by understanding the driver architecture and implementing the required interfaces.
+This guide shows you how to create custom database drivers for Rinari ORM by
+understanding the driver architecture and implementing the required interfaces.
 
 ## Table of Contents
 
@@ -14,11 +14,13 @@ This guide shows you how to create custom database drivers for Rinari ORM by und
 
 ## Driver Architecture
 
-Rinari's driver system provides a pluggable architecture that separates database-specific logic from the ORM core. Each driver is responsible for:
+Rinari's driver system provides a pluggable architecture that separates
+database-specific logic from the ORM core. Each driver is responsible for:
 
 1. **Connection Management** - Establishing and maintaining database connections
 2. **Schema Operations** - Creating tables, indexes, and managing schema
-3. **Query Building** - Translating ORM queries into database-specific SQL/commands
+3. **Query Building** - Translating ORM queries into database-specific
+   SQL/commands
 4. **Data Serialization** - Converting between JavaScript and database types
 5. **Transaction Handling** - Managing ACID transactions
 
@@ -59,10 +61,14 @@ class MyDriver implements SyncDriver {
   };
 
   // All methods return values directly (no Promises)
-  findOne<T>(dbName: string, tableName: string, options: QueryOptions): T | null {
+  findOne<T>(
+    dbName: string,
+    tableName: string,
+    options: QueryOptions
+  ): T | null {
     // Return data synchronously
   }
-  
+
   findAll<T>(dbName: string, tableName: string, options: QueryOptions): T[] {
     // Return data synchronously
   }
@@ -70,12 +76,14 @@ class MyDriver implements SyncDriver {
 ```
 
 **Best for:**
+
 - Local databases (SQLite, LevelDB)
 - JSON file storage
 - In-memory databases
 - Embedded databases
 
 **Characteristics:**
+
 - No Promise overhead
 - Simpler error handling
 - Better performance for local operations
@@ -95,23 +103,33 @@ class MyAsyncDriver implements AsyncDriver {
   };
 
   // All methods return Promises
-  async findOne<T>(dbName: string, tableName: string, options: QueryOptions): Promise<T | null> {
+  async findOne<T>(
+    dbName: string,
+    tableName: string,
+    options: QueryOptions
+  ): Promise<T | null> {
     // Return data asynchronously
   }
-  
-  async findAll<T>(dbName: string, tableName: string, options: QueryOptions): Promise<T[]> {
+
+  async findAll<T>(
+    dbName: string,
+    tableName: string,
+    options: QueryOptions
+  ): Promise<T[]> {
     // Return data asynchronously
   }
 }
 ```
 
 **Best for:**
+
 - Network databases (MongoDB, PostgreSQL, MySQL)
 - Remote APIs
 - Cloud storage (S3, Firebase)
 - Distributed databases
 
 **Characteristics:**
+
 - Non-blocking I/O
 - Network latency handling
 - Concurrent request support
@@ -206,16 +224,16 @@ Understanding the query options structure:
 interface QueryOptions {
   // Filter conditions
   where?: Record<string, any>;
-  
+
   // Sort order: [['column', 'ASC'], ['other', 'DESC']]
   orderBy?: Array<[string, 'ASC' | 'DESC']>;
-  
+
   // Limit number of results
   limit?: number;
-  
+
   // Skip records (pagination)
   offset?: number;
-  
+
   // Select specific columns
   select?: string[];
 }
@@ -227,14 +245,14 @@ Support these operators in WHERE clauses:
 
 ```typescript
 interface WhereOperators {
-  $gt?: any;        // Greater than
-  $gte?: any;       // Greater than or equal
-  $lt?: any;        // Less than
-  $lte?: any;       // Less than or equal
-  $ne?: any;        // Not equal
-  $in?: any[];      // In array
-  $notIn?: any[];   // Not in array
-  $like?: string;   // Pattern matching
+  $gt?: any; // Greater than
+  $gte?: any; // Greater than or equal
+  $lt?: any; // Less than
+  $lte?: any; // Less than or equal
+  $ne?: any; // Not equal
+  $in?: any[]; // In array
+  $notIn?: any[]; // Not in array
+  $like?: string; // Pattern matching
   $between?: [any, any]; // Between two values
 }
 ```
@@ -286,7 +304,7 @@ export class Connection {
 
   async connect(): Promise<void> {
     if (this.isConnected) return;
-    
+
     try {
       // Initialize your database client
       this.client = await createDatabaseClient(this.options);
@@ -298,7 +316,7 @@ export class Connection {
 
   async disconnect(): Promise<void> {
     if (!this.isConnected) return;
-    
+
     try {
       await this.client.close();
       this.isConnected = false;
@@ -384,19 +402,19 @@ export class DataSerializer {
       case 'DATE':
       case 'DATETIME':
         return new Date(value);
-      
+
       case 'BOOLEAN':
         return value === 1 || value === true || value === 'true';
-      
+
       case 'JSON':
       case 'OBJECT':
       case 'ARRAY':
         return typeof value === 'string' ? JSON.parse(value) : value;
-      
+
       case 'INTEGER':
       case 'NUMBER':
         return Number(value);
-      
+
       default:
         return value;
     }
@@ -431,7 +449,10 @@ export class QueryBuilder {
   /**
    * Build WHERE clause from query options
    */
-  private buildWhereClause(where?: Record<string, any>): { sql: string; params: any[] } {
+  private buildWhereClause(where?: Record<string, any>): {
+    sql: string;
+    params: any[];
+  } {
     if (!where || Object.keys(where).length === 0) {
       return { sql: '', params: [] };
     }
@@ -443,7 +464,11 @@ export class QueryBuilder {
     for (const [key, value] of Object.entries(where)) {
       if (value === null) {
         conditions.push(`${key} IS NULL`);
-      } else if (typeof value === 'object' && !Array.isArray(value) && !(value instanceof Date)) {
+      } else if (
+        typeof value === 'object' &&
+        !Array.isArray(value) &&
+        !(value instanceof Date)
+      ) {
         const operators = value as WhereOperators;
 
         if ('$gt' in operators) {
@@ -467,21 +492,29 @@ export class QueryBuilder {
           params.push(DataSerializer.serialize(operators.$ne));
         }
         if ('$in' in operators && Array.isArray(operators.$in)) {
-          const placeholders = operators.$in.map(() => `$${paramIndex++}`).join(', ');
+          const placeholders = operators.$in
+            .map(() => `$${paramIndex++}`)
+            .join(', ');
           conditions.push(`${key} IN (${placeholders})`);
-          params.push(...operators.$in.map(v => DataSerializer.serialize(v)));
+          params.push(...operators.$in.map((v) => DataSerializer.serialize(v)));
         }
         if ('$notIn' in operators && Array.isArray(operators.$notIn)) {
-          const placeholders = operators.$notIn.map(() => `$${paramIndex++}`).join(', ');
+          const placeholders = operators.$notIn
+            .map(() => `$${paramIndex++}`)
+            .join(', ');
           conditions.push(`${key} NOT IN (${placeholders})`);
-          params.push(...operators.$notIn.map(v => DataSerializer.serialize(v)));
+          params.push(
+            ...operators.$notIn.map((v) => DataSerializer.serialize(v))
+          );
         }
         if ('$like' in operators) {
           conditions.push(`${key} LIKE $${paramIndex++}`);
           params.push(operators.$like);
         }
         if ('$between' in operators && Array.isArray(operators.$between)) {
-          conditions.push(`${key} BETWEEN $${paramIndex++} AND $${paramIndex++}`);
+          conditions.push(
+            `${key} BETWEEN $${paramIndex++} AND $${paramIndex++}`
+          );
           params.push(
             DataSerializer.serialize(operators.$between[0]),
             DataSerializer.serialize(operators.$between[1])
@@ -518,10 +551,13 @@ export class QueryBuilder {
     return sql;
   }
 
-  async findOne(tableName: string, options: QueryOptions = {}): Promise<any | null> {
+  async findOne(
+    tableName: string,
+    options: QueryOptions = {}
+  ): Promise<any | null> {
     const select = options.select?.join(', ') || '*';
     const { sql: whereClause, params } = this.buildWhereClause(options.where);
-    
+
     const query = `SELECT ${select} FROM ${tableName}${whereClause} LIMIT 1`;
     const results = await this.connection.execute(query, params);
     return results[0] || null;
@@ -532,7 +568,7 @@ export class QueryBuilder {
     const { sql: whereClause, params } = this.buildWhereClause(options.where);
     const orderBy = this.buildOrderBy(options.orderBy);
     const limit = this.buildLimit(options.limit, options.offset);
-    
+
     const query = `SELECT ${select} FROM ${tableName}${whereClause}${orderBy}${limit}`;
     return await this.connection.execute(query, params);
   }
@@ -549,19 +585,29 @@ export class QueryBuilder {
     const columns = Object.keys(serialized);
     const values = Object.values(serialized);
     const placeholders = columns.map((_, i) => `$${i + 1}`).join(', ');
-    
+
     const query = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES (${placeholders}) RETURNING *`;
     const result = await this.connection.execute(query, values);
     return result[0];
   }
 
-  async update(tableName: string, data: Record<string, any>, where: Record<string, any>): Promise<number> {
+  async update(
+    tableName: string,
+    data: Record<string, any>,
+    where: Record<string, any>
+  ): Promise<number> {
     const serialized = DataSerializer.serializeRecord(data);
-    const setClause = Object.keys(serialized).map((key, i) => `${key} = $${i + 1}`).join(', ');
-    const { sql: whereClause, params: whereParams } = this.buildWhereClause(where);
-    
+    const setClause = Object.keys(serialized)
+      .map((key, i) => `${key} = $${i + 1}`)
+      .join(', ');
+    const { sql: whereClause, params: whereParams } =
+      this.buildWhereClause(where);
+
     const query = `UPDATE ${tableName} SET ${setClause}${whereClause}`;
-    const result = await this.connection.execute(query, [...Object.values(serialized), ...whereParams]);
+    const result = await this.connection.execute(query, [
+      ...Object.values(serialized),
+      ...whereParams,
+    ]);
     return result.rowCount || 0;
   }
 
@@ -580,7 +626,12 @@ Handle DDL operations:
 
 ```typescript
 // src/schema.ts
-import type { TableSchema, ColumnDefinition, IndexOptions, DataType } from '@rinari/types';
+import type {
+  TableSchema,
+  ColumnDefinition,
+  IndexOptions,
+  DataType,
+} from '@rinari/types';
 import { Connection } from './connection.js';
 
 export class SchemaManager {
@@ -685,11 +736,15 @@ export class SchemaManager {
     return result[0]?.exists || false;
   }
 
-  async createIndex(tableName: string, indexName: string, options: IndexOptions): Promise<void> {
+  async createIndex(
+    tableName: string,
+    indexName: string,
+    options: IndexOptions
+  ): Promise<void> {
     const unique = options.unique ? 'UNIQUE' : '';
     const columns = options.columns.join(', ');
     const where = options.where ? ` WHERE ${options.where}` : '';
-    
+
     const query = `CREATE ${unique} INDEX IF NOT EXISTS ${indexName} ON ${tableName} (${columns})${where}`;
     await this.connection.execute(query, []);
   }
@@ -750,7 +805,7 @@ export class MyCustomDriver implements AsyncDriver {
 
   private async getConnection(dbName: string): Promise<Connection> {
     let connection = this.connections.get(dbName);
-    
+
     if (!connection) {
       connection = new Connection({
         ...this.config,
@@ -761,7 +816,7 @@ export class MyCustomDriver implements AsyncDriver {
       this.queryBuilders.set(dbName, new QueryBuilder(connection));
       this.schemaManagers.set(dbName, new SchemaManager(connection));
     }
-    
+
     return connection;
   }
 
@@ -775,7 +830,11 @@ export class MyCustomDriver implements AsyncDriver {
     return this.schemaManagers.get(dbName)!;
   }
 
-  async createTable(dbName: string, tableName: string, schema: TableSchema): Promise<void> {
+  async createTable(
+    dbName: string,
+    tableName: string,
+    schema: TableSchema
+  ): Promise<void> {
     const schemaManager = await this.getSchemaManager(dbName);
     await schemaManager.createTable(tableName, schema);
   }
@@ -790,27 +849,47 @@ export class MyCustomDriver implements AsyncDriver {
     return await schemaManager.tableExists(tableName);
   }
 
-  async findOne<T>(dbName: string, tableName: string, options: QueryOptions): Promise<T | null> {
+  async findOne<T>(
+    dbName: string,
+    tableName: string,
+    options: QueryOptions
+  ): Promise<T | null> {
     const queryBuilder = await this.getQueryBuilder(dbName);
     return await queryBuilder.findOne(tableName, options);
   }
 
-  async findAll<T>(dbName: string, tableName: string, options: QueryOptions): Promise<T[]> {
+  async findAll<T>(
+    dbName: string,
+    tableName: string,
+    options: QueryOptions
+  ): Promise<T[]> {
     const queryBuilder = await this.getQueryBuilder(dbName);
     return await queryBuilder.findAll(tableName, options);
   }
 
-  async count(dbName: string, tableName: string, where?: Record<string, any>): Promise<number> {
+  async count(
+    dbName: string,
+    tableName: string,
+    where?: Record<string, any>
+  ): Promise<number> {
     const queryBuilder = await this.getQueryBuilder(dbName);
     return await queryBuilder.count(tableName, where);
   }
 
-  async insert<T>(dbName: string, tableName: string, data: Record<string, any>): Promise<T> {
+  async insert<T>(
+    dbName: string,
+    tableName: string,
+    data: Record<string, any>
+  ): Promise<T> {
     const queryBuilder = await this.getQueryBuilder(dbName);
     return await queryBuilder.insert(tableName, data);
   }
 
-  async bulkInsert<T>(dbName: string, tableName: string, records: Record<string, any>[]): Promise<T[]> {
+  async bulkInsert<T>(
+    dbName: string,
+    tableName: string,
+    records: Record<string, any>[]
+  ): Promise<T[]> {
     const connection = await this.getConnection(dbName);
     return await connection.transaction(async () => {
       const queryBuilder = await this.getQueryBuilder(dbName);
@@ -823,12 +902,21 @@ export class MyCustomDriver implements AsyncDriver {
     });
   }
 
-  async update(dbName: string, tableName: string, data: Record<string, any>, where: Record<string, any>): Promise<number> {
+  async update(
+    dbName: string,
+    tableName: string,
+    data: Record<string, any>,
+    where: Record<string, any>
+  ): Promise<number> {
     const queryBuilder = await this.getQueryBuilder(dbName);
     return await queryBuilder.update(tableName, data, where);
   }
 
-  async bulkUpdate(dbName: string, tableName: string, updates: Array<{where: Record<string, any>; data: Record<string, any>}>): Promise<number> {
+  async bulkUpdate(
+    dbName: string,
+    tableName: string,
+    updates: Array<{ where: Record<string, any>; data: Record<string, any> }>
+  ): Promise<number> {
     const connection = await this.getConnection(dbName);
     return await connection.transaction(async () => {
       const queryBuilder = await this.getQueryBuilder(dbName);
@@ -840,17 +928,30 @@ export class MyCustomDriver implements AsyncDriver {
     });
   }
 
-  async delete(dbName: string, tableName: string, where: Record<string, any>): Promise<number> {
+  async delete(
+    dbName: string,
+    tableName: string,
+    where: Record<string, any>
+  ): Promise<number> {
     const queryBuilder = await this.getQueryBuilder(dbName);
     return await queryBuilder.delete(tableName, where);
   }
 
-  async createIndex(dbName: string, tableName: string, indexName: string, options: IndexOptions): Promise<void> {
+  async createIndex(
+    dbName: string,
+    tableName: string,
+    indexName: string,
+    options: IndexOptions
+  ): Promise<void> {
     const schemaManager = await this.getSchemaManager(dbName);
     await schemaManager.createIndex(tableName, indexName, options);
   }
 
-  async dropIndex(dbName: string, tableName: string, indexName: string): Promise<void> {
+  async dropIndex(
+    dbName: string,
+    tableName: string,
+    indexName: string
+  ): Promise<void> {
     const schemaManager = await this.getSchemaManager(dbName);
     await schemaManager.dropIndex(indexName);
   }
@@ -863,9 +964,17 @@ export class MyCustomDriver implements AsyncDriver {
     return await firstConnection.transaction(fn);
   }
 
-  async aggregate(dbName: string, tableName: string, operation: string, field: string, where?: Record<string, any>): Promise<number> {
+  async aggregate(
+    dbName: string,
+    tableName: string,
+    operation: string,
+    field: string,
+    where?: Record<string, any>
+  ): Promise<number> {
     const queryBuilder = await this.getQueryBuilder(dbName);
-    const { sql: whereClause, params } = (queryBuilder as any).buildWhereClause(where);
+    const { sql: whereClause, params } = (queryBuilder as any).buildWhereClause(
+      where
+    );
     const connection = await this.getConnection(dbName);
     const query = `SELECT ${operation}(${field}) as result FROM ${tableName}${whereClause}`;
     const result = await connection.execute(query, params);
@@ -991,18 +1100,18 @@ Create a comprehensive type mapping:
 
 ```typescript
 const TYPE_MAPPING: Record<DataType, string> = {
-  'TEXT': 'VARCHAR(255)',
-  'STRING': 'VARCHAR(255)',
-  'INTEGER': 'INTEGER',
-  'NUMBER': 'INTEGER',
-  'REAL': 'DOUBLE PRECISION',
-  'BOOLEAN': 'BOOLEAN',
-  'DATE': 'DATE',
-  'DATETIME': 'TIMESTAMP',
-  'JSON': 'JSONB',
-  'OBJECT': 'JSONB',
-  'ARRAY': 'JSONB',
-  'BLOB': 'BYTEA',
+  TEXT: 'VARCHAR(255)',
+  STRING: 'VARCHAR(255)',
+  INTEGER: 'INTEGER',
+  NUMBER: 'INTEGER',
+  REAL: 'DOUBLE PRECISION',
+  BOOLEAN: 'BOOLEAN',
+  DATE: 'DATE',
+  DATETIME: 'TIMESTAMP',
+  JSON: 'JSONB',
+  OBJECT: 'JSONB',
+  ARRAY: 'JSONB',
+  BLOB: 'BYTEA',
 };
 ```
 
@@ -1013,7 +1122,7 @@ Ensure proper transaction rollback:
 ```typescript
 async transaction<T>(fn: () => Promise<T>): Promise<T> {
   const client = await this.pool.acquire();
-  
+
   try {
     await client.query('BEGIN');
     const result = await fn();
@@ -1114,19 +1223,19 @@ describe('MyCustomDriver', () => {
 
 Document your driver thoroughly:
 
-```typescript
+````typescript
 /**
  * Custom database driver for Rinari ORM.
- * 
+ *
  * @remarks
  * This driver supports PostgreSQL databases with connection pooling,
  * ACID transactions, and full query operator support.
- * 
+ *
  * @example
  * ```typescript
  * import { MyCustomDriver } from '@rinari/my-driver';
  * import { ORM } from '@rinari/orm';
- * 
+ *
  * const driver = new MyCustomDriver({
  *   host: 'localhost',
  *   port: 5432,
@@ -1134,14 +1243,14 @@ Document your driver thoroughly:
  *   username: 'user',
  *   password: 'pass',
  * });
- * 
+ *
  * const orm = new ORM({ driver });
  * ```
  */
 export class MyCustomDriver implements AsyncDriver {
   // Implementation
 }
-```
+````
 
 ## Complete Examples
 
@@ -1150,7 +1259,13 @@ export class MyCustomDriver implements AsyncDriver {
 A complete, production-ready JSON file driver:
 
 ```typescript
-import type { SyncDriver, DriverMetadata, TableSchema, QueryOptions, IndexOptions } from '@rinari/types';
+import type {
+  SyncDriver,
+  DriverMetadata,
+  TableSchema,
+  QueryOptions,
+  IndexOptions,
+} from '@rinari/types';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
@@ -1220,18 +1335,31 @@ export class JSONDriver implements SyncDriver {
     return tableName in db;
   }
 
-  findOne<T>(dbName: string, tableName: string, options: QueryOptions): T | null {
-    const records = this.findAll<T>(dbName, tableName, { ...options, limit: 1 });
+  findOne<T>(
+    dbName: string,
+    tableName: string,
+    options: QueryOptions
+  ): T | null {
+    const records = this.findAll<T>(dbName, tableName, {
+      ...options,
+      limit: 1,
+    });
     return records[0] || null;
   }
 
-  findAll<T>(dbName: string, tableName: string, options: QueryOptions = {}): T[] {
+  findAll<T>(
+    dbName: string,
+    tableName: string,
+    options: QueryOptions = {}
+  ): T[] {
     const db = this.getDatabase(dbName);
     let records = db[tableName] || [];
 
     // Apply where filter
     if (options.where) {
-      records = records.filter((record: any) => this.matchesWhere(record, options.where!));
+      records = records.filter((record: any) =>
+        this.matchesWhere(record, options.where!)
+      );
     }
 
     // Apply ordering
@@ -1265,7 +1393,11 @@ export class JSONDriver implements SyncDriver {
 
   private matchesWhere(record: any, where: Record<string, any>): boolean {
     return Object.entries(where).every(([key, value]) => {
-      if (typeof value === 'object' && !Array.isArray(value) && !(value instanceof Date)) {
+      if (
+        typeof value === 'object' &&
+        !Array.isArray(value) &&
+        !(value instanceof Date)
+      ) {
         // Handle operators
         if ('$gt' in value && !(record[key] > value.$gt)) return false;
         if ('$gte' in value && !(record[key] >= value.$gte)) return false;
@@ -1273,7 +1405,8 @@ export class JSONDriver implements SyncDriver {
         if ('$lte' in value && !(record[key] <= value.$lte)) return false;
         if ('$ne' in value && record[key] === value.$ne) return false;
         if ('$in' in value && !value.$in.includes(record[key])) return false;
-        if ('$notIn' in value && value.$notIn.includes(record[key])) return false;
+        if ('$notIn' in value && value.$notIn.includes(record[key]))
+          return false;
         if ('$like' in value) {
           const pattern = value.$like.replace(/%/g, '.*');
           const regex = new RegExp(pattern, 'i');
@@ -1285,25 +1418,41 @@ export class JSONDriver implements SyncDriver {
     });
   }
 
-  count(dbName: string, tableName: string, where?: Record<string, any>): number {
+  count(
+    dbName: string,
+    tableName: string,
+    where?: Record<string, any>
+  ): number {
     return this.findAll(dbName, tableName, { where }).length;
   }
 
   insert<T>(dbName: string, tableName: string, data: Record<string, any>): T {
     const db = this.getDatabase(dbName);
     const records = db[tableName] || [];
-    const id = records.length > 0 ? Math.max(...records.map((r: any) => r.id || 0)) + 1 : 1;
+    const id =
+      records.length > 0
+        ? Math.max(...records.map((r: any) => r.id || 0)) + 1
+        : 1;
     const record = { id, ...data };
     records.push(record);
     this.saveDatabase(dbName);
     return record as T;
   }
 
-  bulkInsert<T>(dbName: string, tableName: string, records: Record<string, any>[]): T[] {
-    return records.map(record => this.insert<T>(dbName, tableName, record));
+  bulkInsert<T>(
+    dbName: string,
+    tableName: string,
+    records: Record<string, any>[]
+  ): T[] {
+    return records.map((record) => this.insert<T>(dbName, tableName, record));
   }
 
-  update(dbName: string, tableName: string, data: Record<string, any>, where: Record<string, any>): number {
+  update(
+    dbName: string,
+    tableName: string,
+    data: Record<string, any>,
+    where: Record<string, any>
+  ): number {
     const db = this.getDatabase(dbName);
     const records = db[tableName] || [];
     let count = 0;
@@ -1319,7 +1468,11 @@ export class JSONDriver implements SyncDriver {
     return count;
   }
 
-  bulkUpdate(dbName: string, tableName: string, updates: Array<{where: Record<string, any>; data: Record<string, any>}>): number {
+  bulkUpdate(
+    dbName: string,
+    tableName: string,
+    updates: Array<{ where: Record<string, any>; data: Record<string, any> }>
+  ): number {
     let total = 0;
     for (const { where, data } of updates) {
       total += this.update(dbName, tableName, data, where);
@@ -1327,12 +1480,18 @@ export class JSONDriver implements SyncDriver {
     return total;
   }
 
-  delete(dbName: string, tableName: string, where: Record<string, any>): number {
+  delete(
+    dbName: string,
+    tableName: string,
+    where: Record<string, any>
+  ): number {
     const db = this.getDatabase(dbName);
     const records = db[tableName] || [];
     const initialLength = records.length;
 
-    db[tableName] = records.filter((record: any) => !this.matchesWhere(record, where));
+    db[tableName] = records.filter(
+      (record: any) => !this.matchesWhere(record, where)
+    );
 
     const deleted = initialLength - db[tableName].length;
     if (deleted > 0) this.saveDatabase(dbName);
@@ -1352,15 +1511,25 @@ export class JSONDriver implements SyncDriver {
     return fn();
   }
 
-  aggregate(dbName: string, tableName: string, operation: string, field: string, where?: Record<string, any>): number {
+  aggregate(
+    dbName: string,
+    tableName: string,
+    operation: string,
+    field: string,
+    where?: Record<string, any>
+  ): number {
     const records = this.findAll(dbName, tableName, { where });
-    const values = records.map((r: any) => r[field]).filter(v => typeof v === 'number');
-    
+    const values = records
+      .map((r: any) => r[field])
+      .filter((v) => typeof v === 'number');
+
     switch (operation.toUpperCase()) {
       case 'SUM':
         return values.reduce((sum, val) => sum + val, 0);
       case 'AVG':
-        return values.length > 0 ? values.reduce((sum, val) => sum + val, 0) / values.length : 0;
+        return values.length > 0
+          ? values.reduce((sum, val) => sum + val, 0) / values.length
+          : 0;
       case 'MIN':
         return values.length > 0 ? Math.min(...values) : 0;
       case 'MAX':
@@ -1425,12 +1594,16 @@ await orm.disconnect();
 
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 - [@rinari/types API](../../api/types/README.md) - Type definitions reference
-- [SQLite Driver Source](https://github.com/OpenUwU/rinari/tree/main/packages/sqlite) - Reference implementation
-- [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) - Example of native bindings
+- [SQLite Driver Source](https://github.com/OpenUwU/rinari/tree/main/packages/sqlite) -
+  Reference implementation
+- [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) - Example of
+  native bindings
 
 ## Support
 
 If you're building a custom driver and need help:
 
-- [GitHub Issues](https://github.com/OpenUwU/rinari/issues) - Report bugs or request features
-- [Discord Community](https://discord.gg/zqxWVH3CvG) - Get help from the community
+- [GitHub Issues](https://github.com/OpenUwU/rinari/issues) - Report bugs or
+  request features
+- [Discord Community](https://discord.gg/zqxWVH3CvG) - Get help from the
+  community

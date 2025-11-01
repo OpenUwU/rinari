@@ -1,12 +1,13 @@
 [**@rinari/types**](../README.md)
 
-***
+---
 
 [@rinari/types](../README.md) / AggregateOptions
 
 # Interface: AggregateOptions
 
-Defined in: [orm.ts:444](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/orm.ts#L444)
+Defined in:
+[orm.ts:444](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/orm.ts#L444)
 
 Aggregation options for GROUP BY and HAVING clauses.
 
@@ -19,7 +20,7 @@ Used with aggregate functions like COUNT, SUM, AVG, etc.
 ```typescript
 const options: AggregateOptions = {
   groupBy: ['category'],
-  having: { count: { $gt: 5 } }
+  having: { count: { $gt: 5 } },
 };
 ```
 
@@ -29,16 +30,18 @@ const options: AggregateOptions = {
 
 > `optional` **groupBy**: `string`[]
 
-Defined in: [orm.ts:448](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/orm.ts#L448)
+Defined in:
+[orm.ts:448](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/orm.ts#L448)
 
 Columns to group results by.
 
-***
+---
 
 ### having?
 
 > `optional` **having**: `Record`\<`string`, `any`\>
 
-Defined in: [orm.ts:453](https://github.com/OpenUwU/Rinari/blob/64b2f2cffd307b6e9a06908b3bbd0fb795aaaf03/packages/types/src/orm.ts#L453)
+Defined in:
+[orm.ts:453](https://github.com/OpenUwU/rinari/blob/b47591ce2773ace300eff92cd17a8ffd7bd0c7b7/packages/types/src/orm.ts#L453)
 
 Filter conditions applied after grouping.

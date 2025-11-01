@@ -1,0 +1,53 @@
+{
+  "name": "@rinari/bun-sqlite",
+  "version": "1.0.0",
+  "description": "Bun-native SQLite driver for @rinari/orm using bun:sqlite",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [
+    "rinari",
+    "bun",
+    "sqlite",
+    "driver",
+    "bun:sqlite",
+    "database",
+    "orm"
+  ],
+  "author": "OpenUwU",
+  "license": "OpenUwU Open License (OUOL-1.0)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenUwU/rinari.git",
+    "directory": "packages/bun-sqlite"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@rinari/types": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.6",
+    "tsup": "^8.5.0",
+    "typedoc": "^0.28.14",
+    "typedoc-plugin-markdown": "^4.9.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "sideEffects": false
+}

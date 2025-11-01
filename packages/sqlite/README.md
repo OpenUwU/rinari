@@ -1,4 +1,3 @@
-
 # @rinari/sqlite
 
 High-performance synchronous SQLite driver for @rinari/orm.
@@ -8,11 +7,14 @@ High-performance synchronous SQLite driver for @rinari/orm.
 
 ## Overview
 
-`@rinari/sqlite` is a SQLite driver for Rinari ORM, built on better-sqlite3 for maximum performance. It provides synchronous operations, multi-database support, ACID transactions, and advanced query capabilities.
+`@rinari/sqlite` is a SQLite driver for Rinari ORM, built on better-sqlite3 for
+maximum performance. It provides synchronous operations, multi-database support,
+ACID transactions, and advanced query capabilities.
 
 ## Features
 
-- **High Performance** - Built on better-sqlite3 for synchronous, fast operations
+- **High Performance** - Built on better-sqlite3 for synchronous, fast
+  operations
 - **Multi-Database** - Manage multiple SQLite files simultaneously
 - **ACID Transactions** - Full transaction support with automatic rollback
 - **Advanced Queries** - Complex WHERE clauses with rich operator support
@@ -77,19 +79,19 @@ The SQLiteDriver constructor accepts a configuration object:
 
 ```javascript
 const driver = new SQLiteDriver({
-  storageDir: './databases',  // Required: Directory for database files
-  verbose: false,             // Optional: Enable SQL query logging
-  readonly: false,            // Optional: Open databases in read-only mode
+  storageDir: './databases', // Required: Directory for database files
+  verbose: false, // Optional: Enable SQL query logging
+  readonly: false, // Optional: Open databases in read-only mode
 });
 ```
 
 **Configuration Options:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `storageDir` | string | required | Directory where SQLite database files are stored |
-| `verbose` | boolean | `false` | Enable SQL query logging to console |
-| `readonly` | boolean | `false` | Open databases in read-only mode |
+| Option       | Type    | Default  | Description                                      |
+| ------------ | ------- | -------- | ------------------------------------------------ |
+| `storageDir` | string  | required | Directory where SQLite database files are stored |
+| `verbose`    | boolean | `false`  | Enable SQL query logging to console              |
+| `readonly`   | boolean | `false`  | Open databases in read-only mode                 |
 
 ### Configuration Examples
 
@@ -106,7 +108,7 @@ const driver = new SQLiteDriver({
 ```javascript
 const driver = new SQLiteDriver({
   storageDir: './data',
-  verbose: true,  // Logs all SQL queries to console
+  verbose: true, // Logs all SQL queries to console
 });
 ```
 
@@ -115,7 +117,7 @@ const driver = new SQLiteDriver({
 ```javascript
 const driver = new SQLiteDriver({
   storageDir: './data',
-  readonly: true,  // No write operations allowed
+  readonly: true, // No write operations allowed
 });
 ```
 
@@ -156,10 +158,7 @@ const allUsers = User.findAll({
 const userById = User.findById(1);
 
 // Update
-const updatedCount = User.update(
-  { status: 'inactive' },
-  { username: 'bob' }
-);
+const updatedCount = User.update({ status: 'inactive' }, { username: 'bob' });
 console.log(`Updated ${updatedCount} record(s)`);
 
 // Delete
@@ -235,17 +234,17 @@ const filtered = User.findAll({
 
 **Available Operators:**
 
-| Operator | SQL Equivalent | Description | Example |
-|----------|---------------|-------------|---------|
-| `$gt` | `>` | Greater than | `{ age: { $gt: 18 } }` |
-| `$gte` | `>=` | Greater than or equal | `{ age: { $gte: 18 } }` |
-| `$lt` | `<` | Less than | `{ age: { $lt: 65 } }` |
-| `$lte` | `<=` | Less than or equal | `{ age: { $lte: 65 } }` |
-| `$ne` | `!=` | Not equal | `{ status: { $ne: 'deleted' } }` |
-| `$in` | `IN (...)` | In array | `{ status: { $in: ['active', 'pending'] } }` |
-| `$notIn` | `NOT IN (...)` | Not in array | `{ status: { $notIn: ['deleted'] } }` |
-| `$like` | `LIKE` | Pattern match | `{ email: { $like: '%@gmail.com' } }` |
-| `$between` | `BETWEEN ... AND ...` | Between range (inclusive) | `{ age: { $between: [18, 65] } }` |
+| Operator   | SQL Equivalent        | Description               | Example                                      |
+| ---------- | --------------------- | ------------------------- | -------------------------------------------- |
+| `$gt`      | `>`                   | Greater than              | `{ age: { $gt: 18 } }`                       |
+| `$gte`     | `>=`                  | Greater than or equal     | `{ age: { $gte: 18 } }`                      |
+| `$lt`      | `<`                   | Less than                 | `{ age: { $lt: 65 } }`                       |
+| `$lte`     | `<=`                  | Less than or equal        | `{ age: { $lte: 65 } }`                      |
+| `$ne`      | `!=`                  | Not equal                 | `{ status: { $ne: 'deleted' } }`             |
+| `$in`      | `IN (...)`            | In array                  | `{ status: { $in: ['active', 'pending'] } }` |
+| `$notIn`   | `NOT IN (...)`        | Not in array              | `{ status: { $notIn: ['deleted'] } }`        |
+| `$like`    | `LIKE`                | Pattern match             | `{ email: { $like: '%@gmail.com' } }`        |
+| `$between` | `BETWEEN ... AND ...` | Between range (inclusive) | `{ age: { $between: [18, 65] } }`            |
 
 ### Bulk Operations
 
@@ -309,7 +308,7 @@ User.transaction(() => {
   User.create({ username: 'alice', email: 'alice@example.com' });
   User.create({ username: 'bob', email: 'bob@example.com' });
   User.update({ verified: true }, { username: 'alice' });
-  
+
   // If any operation fails, all changes are automatically rolled back
 });
 ```
@@ -382,16 +381,16 @@ const Event = orm.define('analytics_db', 'events', {
 
 SQLite driver maps Rinari data types to SQLite types:
 
-| Rinari Type | SQLite Type | JavaScript Type | Example |
-|--------------|-------------|-----------------|---------|
-| `DataTypes.INTEGER` | INTEGER | number | `42` |
-| `DataTypes.TEXT` | TEXT | string | `'hello'` |
-| `DataTypes.REAL` | REAL | number | `3.14` |
-| `DataTypes.BLOB` | BLOB | Buffer | `Buffer.from('data')` |
-| `DataTypes.BOOLEAN` | INTEGER | boolean | `true` (stored as 1/0) |
-| `DataTypes.DATE` | TEXT | string | `'2024-01-15'` |
-| `DataTypes.DATETIME` | TEXT | string | `'2024-01-15T10:30:00Z'` |
-| `DataTypes.JSON` | TEXT | object/array | `{ key: 'value' }` |
+| Rinari Type          | SQLite Type | JavaScript Type | Example                  |
+| -------------------- | ----------- | --------------- | ------------------------ |
+| `DataTypes.INTEGER`  | INTEGER     | number          | `42`                     |
+| `DataTypes.TEXT`     | TEXT        | string          | `'hello'`                |
+| `DataTypes.REAL`     | REAL        | number          | `3.14`                   |
+| `DataTypes.BLOB`     | BLOB        | Buffer          | `Buffer.from('data')`    |
+| `DataTypes.BOOLEAN`  | INTEGER     | boolean         | `true` (stored as 1/0)   |
+| `DataTypes.DATE`     | TEXT        | string          | `'2024-01-15'`           |
+| `DataTypes.DATETIME` | TEXT        | string          | `'2024-01-15T10:30:00Z'` |
+| `DataTypes.JSON`     | TEXT        | object/array    | `{ key: 'value' }`       |
 
 ## TypeScript Support
 
@@ -428,7 +427,8 @@ const users = User.findAll();
 
 ## Performance
 
-This driver uses better-sqlite3, which is significantly faster than asynchronous SQLite libraries for typical workloads:
+This driver uses better-sqlite3, which is significantly faster than asynchronous
+SQLite libraries for typical workloads:
 
 - **Synchronous operations** - No async overhead
 - **WAL mode** - Write-Ahead Logging for better concurrency
@@ -444,7 +444,8 @@ WARNING: You are using @rinari/sqlite with Bun runtime.
 Bun support is experimental.
 ```
 
-This is informational. The driver works with Bun, but better-sqlite3 is optimized for Node.js.
+This is informational. The driver works with Bun, but better-sqlite3 is
+optimized for Node.js.
 
 ## Best Practices
 
@@ -491,21 +492,30 @@ To improve performance:
 
 ## Related Packages
 
-- **[@rinari/orm](https://github.com/OpenUwU/rinari/tree/main/packages/orm)** - Core ORM (required)
-- **[@rinari/types](https://github.com/OpenUwU/rinari/tree/main/packages/types)** - Type definitions
+- **[@rinari/orm](https://github.com/OpenUwU/rinari/tree/main/packages/orm)** -
+  Core ORM (required)
+- **[@rinari/types](https://github.com/OpenUwU/rinari/tree/main/packages/types)** -
+  Type definitions
 
 ## Documentation
 
-- **[API Documentation](https://github.com/OpenUwU/rinari/tree/main/docs/api/sqlite)** - Complete API reference
-- **[SQLite Driver Guide](https://github.com/OpenUwU/rinari/blob/main/docs/guide/driver/sqlite.md)** - Comprehensive SQLite driver guide
-- **[Driver Overview](https://github.com/OpenUwU/rinari/blob/main/docs/guide/driver/overview.md)** - Driver system architecture
-- **[Complete Documentation](https://github.com/OpenUwU/rinari/blob/main/docs/README.md)** - Full documentation hub
+- **[API Documentation](https://github.com/OpenUwU/rinari/tree/main/docs/api/sqlite)** -
+  Complete API reference
+- **[SQLite Driver Guide](https://github.com/OpenUwU/rinari/blob/main/docs/guide/driver/sqlite.md)** -
+  Comprehensive SQLite driver guide
+- **[Driver Overview](https://github.com/OpenUwU/rinari/blob/main/docs/guide/driver/overview.md)** -
+  Driver system architecture
+- **[Complete Documentation](https://github.com/OpenUwU/rinari/blob/main/docs/README.md)** -
+  Full documentation hub
 
 ## Support
 
-- **[GitHub Issues](https://github.com/OpenUwU/rinari/issues)** - Bug reports and feature requests
-- **[Discord Community](https://discord.gg/zqxWVH3CvG)** - Community support and discussions
+- **[GitHub Issues](https://github.com/OpenUwU/rinari/issues)** - Bug reports
+  and feature requests
+- **[Discord Community](https://discord.gg/zqxWVH3CvG)** - Community support and
+  discussions
 
 ## License
 
-OpenUwU Open License (OUOL-1.0) - See [LICENSE](https://github.com/OpenUwU/rinari/blob/main/LICENSE) for details.
+OpenUwU Open License (OUOL-1.0) - See
+[LICENSE](https://github.com/OpenUwU/rinari/blob/main/LICENSE) for details.

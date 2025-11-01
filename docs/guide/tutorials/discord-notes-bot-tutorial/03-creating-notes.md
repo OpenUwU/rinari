@@ -1,4 +1,3 @@
-
 # Part 3: Creating Notes
 
 Let's implement the core feature: creating and storing notes.
@@ -85,7 +84,8 @@ if (tags) {
 
 ## Why Transactions?
 
-Transactions ensure that either all tag updates succeed or none do. If something fails midway, everything rolls back.
+Transactions ensure that either all tag updates succeed or none do. If something
+fails midway, everything rolls back.
 
 ## Step 5: Send Confirmation
 

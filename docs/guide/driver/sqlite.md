@@ -201,15 +201,15 @@ const results = conn
 ## Data Type Mapping
 
 | Rinari Type | SQLite Type | Notes           |
-| ------------ | ----------- | --------------- |
-| INTEGER      | INTEGER     | Whole numbers   |
-| TEXT         | TEXT        | Strings         |
-| REAL         | REAL        | Floating point  |
-| BOOLEAN      | INTEGER     | Stored as 0/1   |
-| DATE         | TEXT        | ISO 8601 format |
-| DATETIME     | TEXT        | ISO 8601 format |
-| JSON         | TEXT        | Serialized JSON |
-| BLOB         | BLOB        | Binary data     |
+| ----------- | ----------- | --------------- |
+| INTEGER     | INTEGER     | Whole numbers   |
+| TEXT        | TEXT        | Strings         |
+| REAL        | REAL        | Floating point  |
+| BOOLEAN     | INTEGER     | Stored as 0/1   |
+| DATE        | TEXT        | ISO 8601 format |
+| DATETIME    | TEXT        | ISO 8601 format |
+| JSON        | TEXT        | Serialized JSON |
+| BLOB        | BLOB        | Binary data     |
 
 ## Best Practices
 

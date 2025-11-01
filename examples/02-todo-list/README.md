@@ -1,6 +1,7 @@
 # Todo List Example
 
-A practical todo list application demonstrating intermediate Rinari ORM features.
+A practical todo list application demonstrating intermediate Rinari ORM
+features.
 
 ## Features
 

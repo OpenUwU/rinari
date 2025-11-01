@@ -9,17 +9,19 @@
   ],
   "scripts": {
     "build": "npm run build:all",
-    "build:all": "npm run build:types && npm run build:orm && npm run build:sqlite",
+    "build:all": "npm run build:types && npm run build:orm && npm run build:sqlite && npm run build:bun-sqlite",
     "build:types": "cd packages/types && tsup",
     "build:orm": "npm run build:types && cd packages/orm && tsup",
     "build:sqlite": "npm run build:types && npm run build:orm && cd packages/sqlite && tsup",
+    "build:bun-sqlite": "npm run build:types && npm run build:orm && cd packages/bun-sqlite && tsup",
     "clean": "npm run clean --workspaces --if-present && rm -rf node_modules data coverage && find . -name 'package-lock.json' -type f -delete && find . -name 'dist' -type d -exec rm -rf {} + 2>/dev/null || true",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,yml,yaml}\"",
-    "docs": "npm run docs:types && npm run docs:orm && npm run docs:sqlite",
-    "docs:types": "cd packages/types && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/types src/index.ts --readme none --excludePrivate",
-    "docs:orm": "cd packages/orm && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/orm src/index.ts --readme none --excludePrivate",
-    "docs:sqlite": "cd packages/sqlite && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/sqlite src/index.ts --readme none --excludePrivate"
+    "docs": "npm run docs:types && npm run docs:orm && npm run docs:sqlite && npm run docs:bun-sqlite",
+    "docs:types": "npm run build:types && cd packages/types && npm install --save-dev typedoc typedoc-plugin-markdown && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/types src/index.ts --readme none --excludePrivate",
+    "docs:orm": "npm run build:types && npm run build:orm && cd packages/orm && npm install --save-dev typedoc typedoc-plugin-markdown && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/orm src/index.ts --readme none --excludePrivate",
+    "docs:sqlite": "npm run build:types && npm run build:orm && npm run build:sqlite && cd packages/sqlite && npm install --save-dev typedoc typedoc-plugin-markdown && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/sqlite src/index.ts --readme none --excludePrivate",
+    "docs:bun-sqlite": "npm run build:types && npm run build:orm && npm run build:bun-sqlite && cd packages/bun-sqlite && npm install --save-dev typedoc typedoc-plugin-markdown && npx typedoc --plugin typedoc-plugin-markdown --out ../../docs/api/bun-sqlite src/index.ts --readme none --excludePrivate"
   },
   "keywords": [
     "orm",

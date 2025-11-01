@@ -1,6 +1,7 @@
 # Common Patterns
 
-Learn the most common patterns and best practices for building Rinari applications.
+Learn the most common patterns and best practices for building Rinari
+applications.
 
 ## Table of Contents
 
@@ -17,7 +18,8 @@ Learn the most common patterns and best practices for building Rinari applicatio
 
 ## Model Relationships
 
-Rinari doesn't have built-in foreign keys, but you can simulate relationships using IDs and helper functions.
+Rinari doesn't have built-in foreign keys, but you can simulate relationships
+using IDs and helper functions.
 
 ### One-to-Many (e.g., Author → Posts)
 
@@ -82,7 +84,7 @@ function getPostWithTags(postId) {
   if (!post) return null;
 
   const postTags = PostTag.findAll({ where: { postId } });
-  const tags = postTags.map(pt => Tag.findById(pt.tagId));
+  const tags = postTags.map((pt) => Tag.findById(pt.tagId));
 
   return { post, tags };
 }
@@ -147,10 +149,7 @@ function createUser(username) {
 }
 
 function updateUser(id, data) {
-  return User.update(
-    { ...data, updatedAt: new Date().toISOString() },
-    { id }
-  );
+  return User.update({ ...data, updatedAt: new Date().toISOString() }, { id });
 }
 ```
 
@@ -168,20 +167,17 @@ const Post = orm.define('default', 'posts', {
 });
 
 function softDelete(id) {
-  return Post.update(
-    { deletedAt: new Date().toISOString() },
-    { id }
-  );
+  return Post.update({ deletedAt: new Date().toISOString() }, { id });
 }
 
 function getActivePosts() {
   const all = Post.findAll();
-  return all.filter(post => !post.deletedAt);
+  return all.filter((post) => !post.deletedAt);
 }
 
 function getDeletedPosts() {
   const all = Post.findAll();
-  return all.filter(post => post.deletedAt);
+  return all.filter((post) => post.deletedAt);
 }
 
 function restorePost(id) {
@@ -221,8 +217,12 @@ function getPaginatedPosts(page = 1, limit = 10) {
 }
 
 const result = getPaginatedPosts(2, 20);
-console.log(`Page ${result.pagination.page} of ${result.pagination.totalPages}`);
-console.log(`Showing ${result.posts.length} of ${result.pagination.total} posts`);
+console.log(
+  `Page ${result.pagination.page} of ${result.pagination.totalPages}`
+);
+console.log(
+  `Showing ${result.posts.length} of ${result.pagination.total} posts`
+);
 ```
 
 ---
@@ -233,28 +233,36 @@ Combine multiple search criteria:
 
 ```javascript
 function searchPosts(options = {}) {
-  const { query, status, authorId, tags, sortBy = 'createdAt', order = 'DESC' } = options;
+  const {
+    query,
+    status,
+    authorId,
+    tags,
+    sortBy = 'createdAt',
+    order = 'DESC',
+  } = options;
 
   let posts = Post.findAll();
 
   if (query) {
-    posts = posts.filter(post =>
-      post.title.toLowerCase().includes(query.toLowerCase()) ||
-      post.content.toLowerCase().includes(query.toLowerCase())
+    posts = posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(query.toLowerCase()) ||
+        post.content.toLowerCase().includes(query.toLowerCase())
     );
   }
 
   if (status) {
-    posts = posts.filter(post => post.status === status);
+    posts = posts.filter((post) => post.status === status);
   }
 
   if (authorId) {
-    posts = posts.filter(post => post.authorId === authorId);
+    posts = posts.filter((post) => post.authorId === authorId);
   }
 
   if (tags && tags.length > 0) {
-    posts = posts.filter(post =>
-      tags.some(tag => post.tags && post.tags.includes(tag))
+    posts = posts.filter((post) =>
+      tags.some((tag) => post.tags && post.tags.includes(tag))
     );
   }
 
@@ -398,12 +406,15 @@ function transferCoins(fromUserId, toUserId, amount) {
 ✅ **Use Transactions** - For operations that must succeed or fail together  
 ✅ **Cache Wisely** - Cache frequently accessed, rarely changing data  
 ✅ **Paginate Results** - Don't load thousands of records at once  
-✅ **Use Helper Functions** - Encapsulate common operations  
+✅ **Use Helper Functions** - Encapsulate common operations
 
 ---
 
 ## Next Steps
 
-- Check out the [Discord Bot example](https://github.com/OpenUwU/rinari/tree/main/examples/discord-notes-bot) to see these patterns in action
+- Check out the
+  [Discord Bot example](https://github.com/OpenUwU/rinari/tree/main/examples/discord-notes-bot)
+  to see these patterns in action
 - Read about [Advanced Features](../core-concepts.md)
-- Explore the [API Reference](https://github.com/OpenUwU/rinari/tree/main/docs/api)
+- Explore the
+  [API Reference](https://github.com/OpenUwU/rinari/tree/main/docs/api)

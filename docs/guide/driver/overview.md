@@ -235,17 +235,14 @@ driver.transaction(() => {
 ## Best Practices
 
 1. **Choose the Right Driver**
-
    - Use sync drivers for local databases
    - Use async drivers for network databases
 
 2. **Connection Management**
-
    - Always call `disconnect()` when done
    - Reuse driver instances
 
 3. **Error Handling**
-
    - Wrap operations in try-catch
    - Handle driver-specific errors
 

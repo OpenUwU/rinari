@@ -1,10 +1,13 @@
 # Building Your First Real App
 
-In this tutorial, we'll build a **complete task management application** from scratch. You'll learn practical patterns and techniques you can use in your own projects.
+In this tutorial, we'll build a **complete task management application** from
+scratch. You'll learn practical patterns and techniques you can use in your own
+projects.
 
 ## What We'll Build
 
 A task management app with:
+
 - Tasks with title, description, status, and priority
 - Categories for organizing tasks
 - Search and filter functionality
@@ -158,7 +161,10 @@ Create `src/models/task.js`:
 ```javascript
 import { DataTypes } from '@rinari/types';
 import { orm } from '../utils/db.js';
-import { incrementCategoryTaskCount, decrementCategoryTaskCount } from './category.js';
+import {
+  incrementCategoryTaskCount,
+  decrementCategoryTaskCount,
+} from './category.js';
 
 export const Task = orm.define('default', 'tasks', {
   id: {
@@ -207,9 +213,15 @@ Task.createIndex('idx_priority', { columns: ['priority'] });
 Task.createIndex('idx_category', { columns: ['category'] });
 Task.createIndex('idx_due_date', { columns: ['dueDate'] });
 
-export function createTask(title, description, priority = 'medium', category = null, dueDate = null) {
+export function createTask(
+  title,
+  description,
+  priority = 'medium',
+  category = null,
+  dueDate = null
+) {
   const now = new Date().toISOString();
-  
+
   const task = Task.create({
     title,
     description,
@@ -293,9 +305,9 @@ export function deleteTask(id) {
 
 export function getTaskStats() {
   const all = Task.findAll();
-  const completed = all.filter(t => t.status === 'completed');
-  const pending = all.filter(t => t.status === 'pending');
-  const highPriority = pending.filter(t => t.priority === 'high');
+  const completed = all.filter((t) => t.status === 'completed');
+  const pending = all.filter((t) => t.status === 'pending');
+  const highPriority = pending.filter((t) => t.priority === 'high');
 
   return {
     total: all.length,
@@ -335,7 +347,10 @@ createCategory('Personal', 'green');
 createCategory('Shopping', 'yellow');
 
 const categories = getAllCategories();
-console.log(`Created ${categories.length} categories:`, categories.map(c => c.name).join(', '));
+console.log(
+  `Created ${categories.length} categories:`,
+  categories.map((c) => c.name).join(', ')
+);
 
 console.log('\nCreating tasks...');
 const task1 = createTask(
@@ -353,12 +368,7 @@ const task2 = createTask(
   'Shopping'
 );
 
-const task3 = createTask(
-  'Exercise',
-  '30 minutes cardio',
-  'medium',
-  'Personal'
-);
+const task3 = createTask('Exercise', '30 minutes cardio', 'medium', 'Personal');
 
 const task4 = createTask(
   'Code review',
@@ -379,22 +389,27 @@ console.log('Created 5 tasks');
 
 console.log('\n📋 All Tasks:');
 const allTasks = getAllTasks();
-allTasks.forEach(task => {
+allTasks.forEach((task) => {
   const priorityEmoji = { high: '🔴', medium: '🟡', low: '🟢' }[task.priority];
   const statusEmoji = task.status === 'completed' ? '✅' : '⬜';
-  console.log(`  ${statusEmoji} ${priorityEmoji} [${task.category || 'None'}] ${task.title}`);
+  console.log(
+    `  ${statusEmoji} ${priorityEmoji} [${task.category || 'None'}] ${task.title}`
+  );
 });
 
 console.log('\n⚡ Pending Tasks:');
 const pendingTasks = getPendingTasks();
-pendingTasks.forEach(task => {
+pendingTasks.forEach((task) => {
   const priorityEmoji = { high: '🔴', medium: '🟡', low: '🟢' }[task.priority];
   console.log(`  ${priorityEmoji} ${task.title}`);
 });
 
 console.log('\n🔍 Searching for "review"...');
 const searchResults = searchTasks('review');
-console.log(`Found ${searchResults.length} tasks:`, searchResults.map(t => t.title));
+console.log(
+  `Found ${searchResults.length} tasks:`,
+  searchResults.map((t) => t.title)
+);
 
 console.log('\n✅ Completing tasks...');
 completeTask(task1.id);
@@ -409,7 +424,7 @@ console.log(`  Pending: ${stats.pending}`);
 console.log(`  High Priority: ${stats.highPriority}`);
 
 console.log('\n📂 Tasks by Category:');
-categories.forEach(category => {
+categories.forEach((category) => {
   console.log(`  ${category.name}: ${category.taskCount} tasks`);
 });
 
@@ -418,7 +433,9 @@ deleteTask(task5.id);
 console.log('Deleted 1 task');
 
 const finalStats = getTaskStats();
-console.log(`\n📊 Final Stats: ${finalStats.total} total, ${finalStats.completed} completed, ${finalStats.pending} pending`);
+console.log(
+  `\n📊 Final Stats: ${finalStats.total} total, ${finalStats.completed} completed, ${finalStats.pending} pending`
+);
 
 closeDatabase();
 console.log('\n👋 Task Manager closed');
@@ -430,7 +447,8 @@ console.log('\n👋 Task Manager closed');
 node src/app.js
 ```
 
-You should see a complete task management session with categories, tasks, searches, and statistics!
+You should see a complete task management session with categories, tasks,
+searches, and statistics!
 
 ## What You Have Learned
 
@@ -511,5 +529,6 @@ export function completeTask(id) {
 ## Next Steps
 
 - Try the [Common Patterns](./common-patterns.md) guide
-- Explore the [Discord Bot example](https://github.com/OpenUwU/rinari/tree/main/examples/discord-notes-bot)
+- Explore the
+  [Discord Bot example](https://github.com/OpenUwU/rinari/tree/main/examples/discord-notes-bot)
 - Read about [Advanced Features](../core-concepts.md)

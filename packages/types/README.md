@@ -1,4 +1,3 @@
-
 # @rinari/types
 
 Core type definitions and enums for the Rinari ORM framework.
@@ -8,7 +7,9 @@ Core type definitions and enums for the Rinari ORM framework.
 
 ## Overview
 
-`@rinari/types` provides the foundational type system for Rinari ORM, including the `DataTypes` enum for schema definition and TypeScript interfaces for type safety across all packages.
+`@rinari/types` provides the foundational type system for Rinari ORM, including
+the `DataTypes` enum for schema definition and TypeScript interfaces for type
+safety across all packages.
 
 ## Installation
 
@@ -16,14 +17,16 @@ Core type definitions and enums for the Rinari ORM framework.
 npm install @rinari/types
 ```
 
-This package is typically installed automatically as a dependency of `@rinari/orm` and driver packages.
+This package is typically installed automatically as a dependency of
+`@rinari/orm` and driver packages.
 
 ## Features
 
 - **DataTypes Enum** - Standard data type definitions for all Rinari packages
 - **TypeScript Types** - Comprehensive type definitions for full type safety
 - **Zero Dependencies** - Lightweight with no external dependencies
-- **Cross-Package Compatibility** - Ensures type consistency across the ecosystem
+- **Cross-Package Compatibility** - Ensures type consistency across the
+  ecosystem
 
 ## Usage
 
@@ -67,16 +70,16 @@ const User = orm.define('mydb', 'users', {
 
 Available data types for column definitions:
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `DataTypes.TEXT` | Text strings | `'hello world'` |
-| `DataTypes.INTEGER` | Integer numbers | `42` |
-| `DataTypes.REAL` | Floating point numbers | `3.14` |
-| `DataTypes.BLOB` | Binary data | `Buffer.from('data')` |
-| `DataTypes.BOOLEAN` | Boolean values | `true` / `false` |
-| `DataTypes.DATE` | Date values (ISO format) | `'2024-01-15'` |
+| Type                 | Description                | Example                  |
+| -------------------- | -------------------------- | ------------------------ |
+| `DataTypes.TEXT`     | Text strings               | `'hello world'`          |
+| `DataTypes.INTEGER`  | Integer numbers            | `42`                     |
+| `DataTypes.REAL`     | Floating point numbers     | `3.14`                   |
+| `DataTypes.BLOB`     | Binary data                | `Buffer.from('data')`    |
+| `DataTypes.BOOLEAN`  | Boolean values             | `true` / `false`         |
+| `DataTypes.DATE`     | Date values (ISO format)   | `'2024-01-15'`           |
 | `DataTypes.DATETIME` | Date and time (ISO format) | `'2024-01-15T10:30:00Z'` |
-| `DataTypes.JSON` | JSON objects/arrays | `{ key: 'value' }` |
+| `DataTypes.JSON`     | JSON objects/arrays        | `{ key: 'value' }`       |
 
 ### Column Options
 
@@ -173,7 +176,7 @@ import {
   QueryOptions,
   WhereCondition,
   WhereOperators,
-  ColumnDefinition
+  ColumnDefinition,
 } from '@rinari/types';
 
 // Explicit schema typing
@@ -204,42 +207,42 @@ const schema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  
+
   // Required text field
   username: {
     type: DataTypes.TEXT,
     notNull: true,
     unique: true,
   },
-  
+
   // Optional field with default
   status: {
     type: DataTypes.TEXT,
     default: 'active',
   },
-  
+
   // Integer field
   age: {
     type: DataTypes.INTEGER,
   },
-  
+
   // Boolean field
   isVerified: {
     type: DataTypes.BOOLEAN,
     default: false,
   },
-  
+
   // JSON field
   settings: {
     type: DataTypes.JSON,
     default: '{}',
   },
-  
+
   // DateTime field
   createdAt: {
     type: DataTypes.DATETIME,
   },
-  
+
   // Foreign key
   profileId: {
     type: DataTypes.INTEGER,
@@ -278,21 +281,30 @@ User.findAll({ where: { score: { $between: [0, 100] } } });
 
 ## Related Packages
 
-- **[@rinari/orm](https://github.com/OpenUwU/rinari/tree/main/packages/orm)** - Core ORM functionality
-- **[@rinari/sqlite](https://github.com/OpenUwU/rinari/tree/main/packages/sqlite)** - SQLite database driver
+- **[@rinari/orm](https://github.com/OpenUwU/rinari/tree/main/packages/orm)** -
+  Core ORM functionality
+- **[@rinari/sqlite](https://github.com/OpenUwU/rinari/tree/main/packages/sqlite)** -
+  SQLite database driver
 
 ## Documentation
 
-- **[API Documentation](https://github.com/OpenUwU/rinari/tree/main/docs/api/types)** - Complete API reference
-- **[Type System Guide](https://github.com/OpenUwU/rinari/blob/main/docs/guide/types/overview.md)** - Type system overview
-- **[Core Concepts](https://github.com/OpenUwU/rinari/blob/main/docs/guide/core-concepts.md)** - Framework fundamentals
-- **[Complete Documentation](https://github.com/OpenUwU/rinari/blob/main/docs/README.md)** - Full documentation hub
+- **[API Documentation](https://github.com/OpenUwU/rinari/tree/main/docs/api/types)** -
+  Complete API reference
+- **[Type System Guide](https://github.com/OpenUwU/rinari/blob/main/docs/guide/types/overview.md)** -
+  Type system overview
+- **[Core Concepts](https://github.com/OpenUwU/rinari/blob/main/docs/guide/core-concepts.md)** -
+  Framework fundamentals
+- **[Complete Documentation](https://github.com/OpenUwU/rinari/blob/main/docs/README.md)** -
+  Full documentation hub
 
 ## Support
 
-- **[GitHub Issues](https://github.com/OpenUwU/rinari/issues)** - Bug reports and feature requests
-- **[Discord Community](https://discord.gg/zqxWVH3CvG)** - Community support and discussions
+- **[GitHub Issues](https://github.com/OpenUwU/rinari/issues)** - Bug reports
+  and feature requests
+- **[Discord Community](https://discord.gg/zqxWVH3CvG)** - Community support and
+  discussions
 
 ## License
 
-OpenUwU Open License (OUOL-1.0) - See [LICENSE](https://github.com/OpenUwU/rinari/blob/main/LICENSE) for details.
+OpenUwU Open License (OUOL-1.0) - See
+[LICENSE](https://github.com/OpenUwU/rinari/blob/main/LICENSE) for details.

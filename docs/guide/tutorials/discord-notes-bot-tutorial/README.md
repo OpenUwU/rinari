@@ -1,7 +1,7 @@
-
 # Building a Discord Notes Bot with Rinari
 
-A comprehensive tutorial showing how to build a real-world Discord bot using Rinari ORM and JavaScript.
+A comprehensive tutorial showing how to build a real-world Discord bot using
+Rinari ORM and JavaScript.
 
 ## What You'll Build
 
@@ -16,6 +16,7 @@ A fully-featured Discord bot that allows users to:
 ## Why This Tutorial?
 
 This tutorial demonstrates real-world Rinari usage including:
+
 - Multi-model relationships (Notes and Tags)
 - Database transactions for data consistency
 - Advanced queries with operators
@@ -27,19 +28,26 @@ This tutorial demonstrates real-world Rinari usage including:
 
 - Node.js 18+ or Bun 1.0+
 - Basic JavaScript knowledge
-- A Discord bot token ([get one here](https://discord.com/developers/applications))
+- A Discord bot token
+  ([get one here](https://discord.com/developers/applications))
 - Basic familiarity with Discord (helpful but not required)
 
 ## Tutorial Structure
 
 Follow these guides in order:
 
-1. **[Setup & Models](./01-setup.md)** - Initialize the project and define database models
-2. **[Discord Bot Setup](./02-discord-setup.md)** - Configure the Discord client and message handling
-3. **[Creating Notes](./03-creating-notes.md)** - Implement note creation with transactions
-4. **[Querying & Search](./04-querying-notes.md)** - Learn advanced queries and search
-5. **[Updating & Deleting](./05-updating-deleting.md)** - Modify and remove records safely
-6. **[Advanced Features](./06-advanced-features.md)** - Statistics, aggregations, and optimization
+1. **[Setup & Models](./01-setup.md)** - Initialize the project and define
+   database models
+2. **[Discord Bot Setup](./02-discord-setup.md)** - Configure the Discord client
+   and message handling
+3. **[Creating Notes](./03-creating-notes.md)** - Implement note creation with
+   transactions
+4. **[Querying & Search](./04-querying-notes.md)** - Learn advanced queries and
+   search
+5. **[Updating & Deleting](./05-updating-deleting.md)** - Modify and remove
+   records safely
+6. **[Advanced Features](./06-advanced-features.md)** - Statistics,
+   aggregations, and optimization
 
 ## What You Will Learn
 
@@ -60,7 +68,7 @@ Follow these guides in order:
 - Handling message events
 - Command parsing and routing
 - User interaction patterns
-- Error handling in bots  
+- Error handling in bots
 
 ## Complete Example
 
@@ -90,16 +98,16 @@ npm start
 
 ```javascript
 // Equality matching
-Note.findAll({ where: { userId: message.author.id } })
+Note.findAll({ where: { userId: message.author.id } });
 
 // Pattern matching
-Note.findAll({ where: { title: { $like: '%tutorial%' } } })
+Note.findAll({ where: { title: { $like: '%tutorial%' } } });
 
 // Range queries and sorting
 Note.findAll({
   where: { createdAt: { $gte: lastWeek } },
-  orderBy: [['createdAt', 'DESC']]
-})
+  orderBy: [['createdAt', 'DESC']],
+});
 ```
 
 ### Real-World Patterns
@@ -143,6 +151,8 @@ If you get stuck:
 After completing this tutorial:
 
 - **Extend the Bot** - Add more commands and features
-- **Build Another App** - Try the [Todo List example](https://github.com/OpenUwU/rinari/tree/main/examples/02-todo-list)
-- **Learn Advanced Patterns** - Check out [Common Patterns](../common-patterns.md)
+- **Build Another App** - Try the
+  [Todo List example](https://github.com/OpenUwU/rinari/tree/main/examples/02-todo-list)
+- **Learn Advanced Patterns** - Check out
+  [Common Patterns](../common-patterns.md)
 - **Contribute** - Share your bot or contribute to Rinari!

@@ -1,4 +1,3 @@
-
 # Part 6: Advanced Features
 
 Explore Rinari's powerful advanced features.
@@ -38,9 +37,27 @@ Create multiple records efficiently:
 
 ```typescript
 const notes = Note.bulkCreate([
-  { userId: '1', title: 'Note 1', content: 'Content 1', createdAt: now, updatedAt: now },
-  { userId: '1', title: 'Note 2', content: 'Content 2', createdAt: now, updatedAt: now },
-  { userId: '1', title: 'Note 3', content: 'Content 3', createdAt: now, updatedAt: now },
+  {
+    userId: '1',
+    title: 'Note 1',
+    content: 'Content 1',
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    userId: '1',
+    title: 'Note 2',
+    content: 'Content 2',
+    createdAt: now,
+    updatedAt: now,
+  },
+  {
+    userId: '1',
+    title: 'Note 3',
+    content: 'Content 3',
+    createdAt: now,
+    updatedAt: now,
+  },
 ]);
 ```
 
@@ -88,7 +105,7 @@ Create indexes with conditions:
 ```typescript
 Note.createIndex('idx_active_notes', {
   columns: ['createdAt'],
-  where: "deletedAt IS NULL",
+  where: 'deletedAt IS NULL',
 });
 ```
 
@@ -133,6 +150,7 @@ const Analytics = orm.define('analytics_db', 'events', eventSchema);
 ```
 
 Creates separate database files:
+
 - `./data/users_db.sqlite`
 - `./data/analytics_db.sqlite`
 
@@ -145,7 +163,9 @@ async function handleListTags(message) {
     limit: 10,
   });
 
-  const tagList = tags.map((tag) => `#${tag.name} (${tag.usageCount})`).join('\n');
+  const tagList = tags
+    .map((tag) => `#${tag.name} (${tag.usageCount})`)
+    .join('\n');
   await message.reply(`Top Tags:\n\n${tagList}`);
 }
 ```

@@ -1,6 +1,7 @@
 # Basic CRUD Example
 
-This example demonstrates the fundamental CRUD (Create, Read, Update, Delete) operations using Rinari ORM with SQLite.
+This example demonstrates the fundamental CRUD (Create, Read, Update, Delete)
+operations using Rinari ORM with SQLite.
 
 ## What You'll Learn
 
