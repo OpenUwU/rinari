@@ -1,0 +1,104 @@
+
+# Rinari Model
+
+## Define Model
+>> `orm.define<Interface>('dbName', 'tableName', schema)`
+interface User { id: number; name: string; email: string; age: number; status: string; }
+
+const User = orm.define<User>('db', 'users', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.TEXT, notNull: true },
+  email: { type: DataTypes.TEXT, notNull: true, unique: true },
+  age: { type: DataTypes.INTEGER, default: 18 },
+  status: { type: DataTypes.TEXT, default: 'active' }
+});
+
+
+## Create
+>> `create(data)` -> inserts one record.
+
+const user = User.create({ name: 'Alice', email: 'a@b.com', age: 30 });
+
+## Read
+>> `findById(id)` -> finds by primary key.
+>> `findOne(options)` -> finds first match.
+>> `findAll(options)` -> finds all matches.
+
+const user1 = User.findById(1);
+const admin = User.findOne({ where: { name: 'Alice' } });
+const teens = User.findAll({
+  where: { age: { $gte: 13, $lt: 20 } },
+  orderBy: [['age', 'DESC']],
+  limit: 10,
+  offset: 0,
+  select: ['id', 'name']
+});
+
+
+## Update
+>> `update(data, where)` -> updates matching records.
+
+const count = User.update({ age: 31, status: 'verified' }, { id: 1 });
+
+
+## Delete
+>> `delete(where)` -> deletes matching records.
+
+const count = User.delete({ status: 'inactive' })
+
+## Bulk Operations
+>> Efficiently run multiple operations in one transaction.
+// bulkCreate(records)
+User.bulkCreate([
+  { name: 'Bob', email: 'b@b.com' },
+  { name: 'Charlie', email: 'c@c.com' }
+]);
+// bulkUpdate(updates)
+User.bulkUpdate([
+  { where: { id: 1 }, data: { status: 'active' } },
+  { where: { id: 2 }, data: { status: 'banned' } }
+]);
+
+// bulkDelete(whereConditions)
+User.bulkDelete([
+  { status: 'banned' },
+  { age: { $lt: 18 } }
+]);
+
+
+## Aggregations
+>> All methods accept an optional `where` filter.
+const total = User.count();
+const active = User.count({ status: 'active' });
+
+const totalAge = User.sum('age', { status: 'active' });
+const avgAge = User.avg('age');
+
+const minAge = User.min('age');
+const maxAge = User.max('age');
+
+// Generic aggregate(operation, field, where)
+const totalAgeGeneric = User.aggregate('SUM', 'age');
+
+## Indexes
+>> Improve query performance.
+// createIndex(name, options)
+User.createIndex('idx_email', { columns: ['email'], unique: true });
+User.createIndex('idx_status_age', { columns: ['status', 'age'] });
+User.createIndex('idx_partial', { columns: ['name'], where: "status = 'active'" });
+
+// dropIndex(name)
+User.dropIndex('idx_email')
+
+## Transactions
+>> `transaction(callback)` -> runs operations atomically. Rollbacks on error.
+const result = User.transaction(() => {
+  const user = User.create({ name: 'Dave', email: 'd@d.com' });
+  Profile.create({ userId: user.id }); // Fails if Profile model doesn't exist
+  return user;
+}); // Throws error, user 'Dave' is not created
+
+## Model Info
+>> Get metadata from the model instance.
+const tableName = User.table; // "users"
+const dbName = User.database; // "db"
